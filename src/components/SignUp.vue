@@ -1,0 +1,141 @@
+<template>
+  <v-container light fluid class="bg-signUp">
+    <v-layout row wrap>
+      <v-flex xs12 sm4 offset-sm4>
+        <form @submit.prevent="submit" class="signUpForm">
+          <v-layout row>
+            <Heading :title="$t('signup.TITLE')" />
+          </v-layout>
+          <v-layout column>
+            <v-flex>
+              <v-text-field
+                id="name"
+                name="name"
+                :label="$t('signup.NAME')"
+                v-model="name"
+                :data-vv-as="$t('signup.NAME')"
+                :error="errors.has('name')"
+                :error-messages="errors.collect('name')"
+                v-validate.disable="'required'"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                id="email"
+                name="email"
+                type="email"
+                :label="$t('signup.EMAIL')"
+                v-model="email"
+                :data-vv-as="$t('signup.EMAIL')"
+                :error="errors.has('email')"
+                :error-messages="errors.collect('email')"
+                v-validate.disable="'required|email'"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                id="password"
+                name="password"
+                type="password"
+                :label="$t('signup.PASSWORD')"
+                v-model="password"
+                :data-vv-as="$t('signup.PASSWORD')"
+                :error="errors.has('password')"
+                :error-messages="errors.collect('password')"
+                v-validate.disable="'required|min:5'"
+                ref="password"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                :label="$t('signup.CONFIRM_PASSWORD')"
+                v-model="confirmPassword"
+                :data-vv-as="$t('signup.PASSWORD')"
+                :error="errors.has('confirmPassword')"
+                :error-messages="errors.collect('confirmPassword')"
+                v-validate.disable="'required|min:5|confirmed:password'"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex text-xs-center mt-5>
+              <SubmitButton :text="$t('signup.SIGN_ME_UP')" />
+            </v-flex>
+          </v-layout>
+        </form>
+      </v-flex>
+      <ErrorMessage />
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+import router from '@/router'
+import { mapActions } from 'vuex'
+
+export default {
+  metaInfo() {
+    return {
+      title: this.$store.getters.appTitle,
+      titleTemplate: this.$t('signup.TITLE') + ' - %s'
+    }
+  },
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  },
+  methods: {
+    ...mapActions(['userSignUp']),
+    async submit() {
+      try {
+        const valid = await this.$validator.validateAll()
+        if (valid) {
+          await this.userSignUp({
+            name: this.name,
+            email: this.email,
+            password: this.password
+          })
+          return
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        return
+      }
+    }
+  },
+  created() {
+    if (this.$store.state.auth.isTokenSet) {
+      router.push({ name: 'home' })
+    }
+  }
+}
+</script>
+
+<style scope>
+.bg-signUp {
+  background: url('/bg-login.jpg');
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+.signUpForm {
+  background-color: white;
+  padding: 10px 50px 20px 50px;
+  border-radius: 20px;
+  margin-top: 120px;
+  min-width: 320px;
+}
+.signUpForm h1 {
+  font-size: 35px;
+}
+</style>

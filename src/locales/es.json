@@ -1,0 +1,193 @@
+{
+  "errors": {
+    "BAD_TOKEN": "Token malo",
+    "WRONG_PASSWORD": "Contraseña errada",
+    "USER_DOES_NOT_EXIST": "Usuario no existe",
+    "PASSWORDS_DONT_MATCH": "Las contraseñas no coinciden",
+    "PASSWORD_TOO_SHORT_MIN_5": "Contraseña muy corta, mínimo 5 caracteres",
+    "BLOCKED_USER": "Demasiados intentos fallidos, usuario bloqueado temporalmente",
+    "SERVER_TIMEOUT_CONNECTION_ERROR": "El servidor no está respondiendo, error de conexión",
+    "404": "404 Página no encontrada",
+    "EMAIL_IS_NOT_VALID": "E-mail no válido",
+    "IS_EMPTY": "Campos vacíos",
+    "ERROR": "Error",
+    "MISSING": "Campos faltantes",
+    "NOT_FOUND_OR_ALREADY_VERIFIED": "No encontrado o ya fue verificado",
+    "NOT_FOUND_OR_ALREADY_USED": "No encontrado o ya fue usado",
+    "NOT_FOUND": "No encontrado",
+    "UNAUTHORIZED": "No autorizado",
+    "EMAIL_ALREADY_EXISTS": "E-mail ya existe",
+    "ID_MALFORMED": "ID malformado",
+    "ERROR_WITH_FILTER": "Error con el filtro",
+    "CITY_ALREADY_EXISTS": "Ciudad ya existe"
+  },
+  "common": {
+    "DELETE": "Eliminar",
+    "CANCEL": "Cancelar",
+    "WARNING": "Advertencia",
+    "DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM": "¿Realmente deseas eliminar este registro?",
+    "CLOSE": "Cerrar",
+    "SAVED_SUCCESSFULLY": "Guardado exitosamente",
+    "DELETED_SUCCESSFULLY": "Eliminado exitosamente",
+    "CREATED": "Creado",
+    "UPDATED": "Actualizado",
+    "GO_BACK": "Volver"
+  },
+  "loading": {
+    "PLEASE_WAIT": "Por favor espere..."
+  },
+  "menuItems": {
+    "LANDING": "Página de Inicio",
+    "HOME": "Inicio",
+    "ABOUT": "Acerca",
+    "MY_PROFILE": "Mi Perfil",
+    "SIGNUP": "Alta Inversor",
+    "LOGIN": "Iniciar Sesión",
+    "LOGOUT": "Salir"
+  },
+  "adminItems": {
+    "ADMIN": "Admin",
+    "CITIES": "Ciudades",
+    "USERS": "Usuarios"
+  },
+  "roles": {
+    "ADMIN": "Administrador",
+    "USER": "Usuario"
+  },
+  "dataTable": {
+    "NEW_MOVEMENT": "Nuevo movimiento",
+    "NEW_ITEM": "Nuevo inversor",
+    "EDIT_ITEM": "Editar movimiento",
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "RESET": "Reiniciar",
+    "ACTIONS": "Acciones",
+    "ROWS_PER_PAGE": "Elementos por página",
+    "NO_DATA": "No hay datos",
+    "NO_RESULTS": "No hay resultados",
+    "OF": "de",
+    "SEARCH": "Buscar"
+  },
+  "cities": {
+    "TITLE": "Ciudades",
+    "headers": {
+      "NAME": "Nombre"
+    }
+  },
+  "users": {
+    "TITLE": "Inversores Registrados",
+    "headers": {
+      "NAME": "Nombre",
+      "EMAIL": "E-mail",
+      "ROLE": "Rol",
+      "VERIFIED": "Verificado",
+      "CITY": "Ciudad",
+      "COUNTRY": "País",
+      "PHONE": "Teléfono"
+    },
+    "PASSWORD": "Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña"
+  },
+  "landing": {
+    "TITLE": "Invierte como los grandes",
+    "DESCRIPTION": "Análisis financiero basado en inteligencia artificial a tu alcance."
+  },
+  "home": {
+    "TITLE": "Panel Principal",
+    "DESCRIPTION": "En éste lugar podrá consultar el estado de todas sus inversiones.",
+    "VERIFY_YOUR_ACCOUNT": "IMPORTANTE: Verifica tu cuenta",
+    "VERIFY_YOUR_ACCOUNT_DESCRIPTION": "Debes verificar tu cuenta haciendo click en el enlace enviado a tu E-mail para que puedas disfrutar de todas las características de nuestra aplicación",
+    "RESEND_VERIFY": "Resend email",
+    "CLOSE": "Cerrar",
+    "CHART_SECTION": "Gráfica de beneficios por meses",
+    "MOVEMENTS_SECTION": "Listado de movimientos"
+  },
+  "about": {
+    "TITLE": "Acerca de...",
+    "DESCRIPTION": "Esta página está disponible públicamente"
+  },
+  "login": {
+    "TITLE": "Iniciar Sesión",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Contraseña",
+    "LOGIN": "Iniciar Sesión",
+    "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?"
+  },
+  "forgotPassword": {
+    "TITLE": "Olvidé mi contraseña",
+    "EMAIL": "E-mail",
+    "DESCRIPTION": "Ingresa tu E-mail para que podamos enviarte un mensaje con instrucciones para recuperar tu contraseña",
+    "RECOVER": "Recuperar",
+    "RESET_EMAIL_SENT": "Hemos enviado un mensaje a %{0} con instrucciones para recuperar tu contraseña"
+  },
+  "resetPassword": {
+    "TITLE": "Cambiar Contraseña",
+    "PASSWORD": "Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "CHANGE_PASSWORD": "Cambiar Contraseña",
+    "PASSWORD_CHANGED": "Contraseña cambiada exitosamente"
+  },
+  "signup": {
+    "TITLE": "Alta Inversor",
+    "NAME": "Nombre",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "SIGN_ME_UP": "Enviar alta"
+  },
+  "verify": {
+    "TITLE": "Verificación de E-mail",
+    "EMAIL_VERIFIED": "E-mail verificado exitosamente",
+    "RESEND_EMAIL": "E-mail sent successfully. Check your inbox and your SPAM inbox."
+  },
+  "myProfile": {
+    "TITLE": "Mi Perfil",
+    "CHANGE_MY_PASSWORD": "Cambiar Mi Contraseña",
+    "CURRENT_PASSWORD": "Contraseña Actual",
+    "NEW_PASSWORD": "Nueva Contraseña",
+    "CONFIRM_NEW_PASSWORD": "Confirmar Nueva Contraseña",
+    "PASSWORD_CHANGED": "Contraseña cambiada exitosamente",
+    "NAME": "Nombre",
+    "EMAIL": "E-mail",
+    "PHONE": "Teléfono",
+    "CITY": "Ciudad",
+    "NO_RESULTS_FOUND": "No se encontraron resultados",
+    "COUNTRY": "País",
+    "SAVE": "Guardar",
+    "PROFILE_SAVED_SUCCESSFULLY": "Perfil guardado exitosamente"
+  },
+  "TITLE_LEGEND": "Balance",
+  "months": [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+  ],
+  "movement": {
+    "movements": "Movimientos",
+    "AMOUNT": "Cantidad",
+    "TX_TYPE": "Tipo de Transacción",
+    "DATE": "Fecha",
+    "BALANCE": "Balance",
+    "TOTAL_BALANCE": "Balance total"
+  },
+  "admin": {
+    "NEW_MOVEMENT": "Nuevo movimiento",
+    "INVESTMENT_TITLE": "Inversión y balances",
+    "USER_DETAILS": "Detalles del usuario",
+    "INV_OPTIONS": "Opciones",
+    "DEFAULT_PERCENT": "Porcentaje de ganancia mensual",
+    "ADD_MOVEMENT": "Añadir movimiento",
+    "DELETE_MOVEMENT": "Borrar movimiento"
+  }
+}

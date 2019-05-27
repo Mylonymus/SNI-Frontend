@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "node.fullname" . }}
+  labels:
+    app: {{ template "node.name" . }}
+    chart: {{ template "node.chart" . }}
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "node.name" . }}
+      release: "{{ .Release.Name }}"
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "node.name" . }}
+        chart: {{ template "node.chart" . }}
+        release: {{ .Release.Name | quote }}
+        heritage: "{{ .Release.Service }}"
+    spec:
+      {{- if .Values.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+      {{- end }}
+{{- include "node.imagePullSecrets" . | indent 6 }}
+      initContainers:
+      - name: git-clone-repository
+        image: k8s.gcr.io/git-sync:v3.1.1
+        args:
+         - "-ssh"
+         - "-repo={{.Values.repository}}"
+         - "-dest=temp"
+         - "-branch={{.Values.revision}}"
+         - "-depth=1"
+         - "-root=/app"
+         - "-one-time=true"
+        securityContext:
+          runAsUser: 65533 # git-sync user
+        volumeMounts:
+        - name: app
+          mountPath: /app
+        - name: git-secret
+          mountPath: /etc/git-secret
+      - name: npm-install
+        image: "{{ template "node.image" . }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        workingDir: /app
+        command: ['/bin/bash', '-c', 'cp -rL /app/temp /app/frontend-mexicoin && cd frontend-mexicoin && npm install --only=prod']
+        env:
+        - name: HOME
+          value: /tmp
+        volumeMounts:
+        - name: app
+          mountPath: /app
+      containers:
+      - name: {{ template "node.fullname" . }}
+        image: "{{ template "node.image" . }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        env:
+        - name: DATA_FOLDER
+          value: "/app"
+{{- if .Values.extraEnv }}
+{{ toYaml .Values.extraEnv | indent 8 }}
+{{- end }}
+        workingDir: /app/frontend-mexicoin
+        command: ['/bin/bash', '-c', 'npm start']
+        ports:
+        - name: http
+          containerPort: {{ .Values.applicationPort }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 5
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: app
+          mountPath: /app
+        - name: data
+          mountPath: {{ .Values.persistence.path }}
+      volumes:
+      - name: git-secret
+        secret:
+          secretName: git-creds-front
+          defaultMode: 288 # = mode 0440
+      - name: app
+        emptyDir: {}
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
