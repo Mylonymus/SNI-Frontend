@@ -44,8 +44,8 @@
       <v-flex xs6 align-end>
         <v-card>
           <v-card-title
-            ><v-icon class="mr-2">account_balance</v-icon>
-            <span>Balance Total</span></v-card-title
+            ><v-icon color="primary" class="mr-2">person_add</v-icon>
+            <span>Nª Pacientes Activos</span></v-card-title
           >
           <v-card-text>
             <strong class="headline">{{ balanceTotalRecibido }}</strong>
@@ -147,7 +147,7 @@ export default {
         datasets: [
           {
             label: this.$t('TITLE_LEGEND'),
-            backgroundColor: '#002053',
+            backgroundColor: '#007fa8',
             fill: false,
             data: this.balancesRecibidos.map(value => value.balance),
             percent: this.balancesRecibidos.map(value => value.percent)
@@ -163,19 +163,37 @@ export default {
     headers() {
       return [
         {
-          text: this.$i18n.t('movement.TX_TYPE'),
+          text: this.$i18n.t('DAY_HEMOMEDICI.NAME'),
           align: 'left',
           sortable: true,
           value: 'tx_type'
         },
         {
-          text: this.$i18n.t('movement.AMOUNT'),
+          text: this.$i18n.t('DAY_HEMOMEDICI.HEMOPERWEEK'),
           align: 'left',
           sortable: true,
           value: 'amount'
         },
         {
-          text: this.$i18n.t('movement.DATE'),
+          text: this.$i18n.t('DAY_HEMOMEDICI.EPO_DOSIS'),
+          align: 'left',
+          sortable: true,
+          value: 'date'
+        },
+        {
+          text: this.$i18n.t('DAY_HEMOMEDICI.EPOPERWEEK'),
+          align: 'left',
+          sortable: true,
+          value: 'date'
+        },
+        {
+          text: this.$i18n.t('DAY_HEMOMEDICI.TOTALPERWEEK'),
+          align: 'left',
+          sortable: true,
+          value: 'date'
+        },
+        {
+          text: this.$i18n.t('DAY_HEMOMEDICI.HIERRO'),
           align: 'left',
           sortable: true,
           value: 'date'

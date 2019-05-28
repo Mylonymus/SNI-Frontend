@@ -89,35 +89,87 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
+        
         <v-btn
-          flat
-          v-for="(item, index) in menuItems"
-          :key="index"
-          :to="{ name: item.link }"
+          flat 
+          to="home"
           exact
-          :class="['hidden-sm-and-down', item.class]"
+          class="hidden-sm-and-down btnHome"
         >
-          <v-icon>{{ item.icon }}</v-icon>
-          &nbsp;{{ item.title }}
+          <v-icon>home</v-icon>
+          &nbsp;{{ this.$t('menuItems.HOME') }}
         </v-btn>
 
-        <v-menu v-if="admin" offset-y class="hidden-sm-and-down">
-          <v-btn to="/admin/users" slot="activator" flat class="btnAdmin">
-            <v-icon>supervisor_account</v-icon>
-            &nbsp;{{ $t('adminItems.USERS') }}
-          </v-btn>
-        </v-menu>
+        <v-menu v-if="admin" offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn 
+              flat 
+              v-on="on"
+            >
+            <v-icon>local_hospital</v-icon>
+                &nbsp;Pacientes
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-tile
+              v-for="(item, i) in adminItems"
+              :key="i"
+            >
+              <v-btn
+              dark
+                  color="primary"
+                  flat 
+                  :key="i"
+                  :to="{ name: item.link }"
+                  exact
+                  :class="[item.class]"
+                ><v-icon>{{ item.icon }}</v-icon>
+                  &nbsp;{{ item.title }}
+                </v-btn>
+            </v-list-tile>
+          </v-list>
+        </v-menu> 
 
         <LocaleChanger />
-        <v-btn
-          flat
-          v-if="isTokenSet"
-          @click="userLogout"
-          class="hidden-sm-and-down btnLogout"
-        >
-          <v-icon left>exit_to_app</v-icon>
-          {{ $t('menuItems.LOGOUT') }}
-        </v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn 
+              flat 
+              v-on="on"
+            >
+              <v-icon>menu</v-icon> 
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-tile class="menuDerecho">
+              <v-btn
+                block
+                right
+                flat 
+                to="profile"
+                exact
+                class="hidden-sm-and-down btnHome"
+              >
+                <v-icon>account_circle</v-icon>
+                &nbsp;{{ this.$t('menuItems.MY_PROFILE') }}
+              </v-btn> 
+            </v-list-tile> 
+            <v-list-tile class="menuDerecho">
+              <v-btn
+                block
+                right
+                flat
+                v-if="isTokenSet"
+                @click="userLogout"
+                class="hidden-sm-and-down btnLogout"
+              >
+                <v-icon left>exit_to_app</v-icon>
+                {{ $t('menuItems.LOGOUT') }}
+              </v-btn>
+            </v-list-tile>
+          </v-list>
+        </v-menu> 
       </v-toolbar-items>
     </v-toolbar>
   </div>
@@ -188,19 +240,31 @@ export default {
           ? true
           : false
         : false
-    },
+    }, 
     adminItems() {
       return [
         {
-          title: this.$t('adminItems.CITIES'),
+          title: this.$t('adminItems.LISTPACIENTS'),
           link: 'admin-cities',
-          icon: 'location_city',
-          class: 'btnAdminCities'
+          icon: 'view_list' ,
+          class: 'btnAdminUsers'
+        },
+        {
+          title: this.$t('adminItems.LISTDRS'),
+          link: 'admin-cities',
+          icon: 'supervised_user_circle' ,
+          class: 'btnAdminUsers'
+        },
+        {
+          title: this.$t('adminItems.LISTNURSERING'),
+          link: 'admin-cities',
+          icon: 'supervisor_account' ,
+          class: 'btnAdminUsers'
         },
         {
           title: this.$t('adminItems.USERS'),
           link: 'admin-users',
-          icon: 'supervisor_account',
+          icon: 'view_list',
           class: 'btnAdminUsers'
         }
       ]
@@ -259,5 +323,15 @@ export default {
 .v-list__tile__title.ml-3{
   color:#007c93 !important;
   font-size:14px;
+}
+.menuDerecho div a, .menuDerecho, .menuDerecho div, .menuDerecho div button {
+  margin: 0;
+  padding: 0;
+  min-width: 110px;
+  position: relative;
+  left: 0;
+}
+i.v-icon.v-icon--left.material-icons.theme--light {
+  margin-right: 30px;
 }
 </style>

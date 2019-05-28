@@ -47,7 +47,9 @@
   },
   "adminItems": {
     "ADMIN": "Admin",
-    "CITIES": "Ciudades",
+    "LISTPACIENTS": "Listado Pacientes",
+    "LISTDRS": "Listado Doctores",
+    "LISTNURSERING": "Listado Enfermería",
     "USERS": "Usuarios"
   },
   "roles": {
@@ -91,18 +93,18 @@
     "CONFIRM_PASSWORD": "Confirmar Contraseña"
   },
   "landing": {
-    "TITLE": "Invierte como los grandes",
-    "DESCRIPTION": "Análisis financiero basado en inteligencia artificial a tu alcance."
+    "TITLE": "Un Sistema Médico Virtual a su servicio",
+    "DESCRIPTION": "En breve obtendrá los resultados"
   },
   "home": {
     "TITLE": "Panel Principal",
-    "DESCRIPTION": "En éste lugar podrá consultar el estado de todas sus inversiones.",
+    "DESCRIPTION": "En breve obtendrá los resultados",
     "VERIFY_YOUR_ACCOUNT": "IMPORTANTE: Verifica tu cuenta",
     "VERIFY_YOUR_ACCOUNT_DESCRIPTION": "Debes verificar tu cuenta haciendo click en el enlace enviado a tu E-mail para que puedas disfrutar de todas las características de nuestra aplicación",
     "RESEND_VERIFY": "Resend email",
     "CLOSE": "Cerrar",
-    "CHART_SECTION": "Gráfica de beneficios por meses",
-    "MOVEMENTS_SECTION": "Listado de movimientos"
+    "CHART_SECTION": "Gráfica de pacientes por meses",
+    "MOVEMENTS_SECTION": "Últimos Pacientes atendidos"
   },
   "about": {
     "TITLE": "Acerca de...",
@@ -158,7 +160,7 @@
     "SAVE": "Guardar",
     "PROFILE_SAVED_SUCCESSFULLY": "Perfil guardado exitosamente"
   },
-  "TITLE_LEGEND": "Balance",
+  "TITLE_LEGEND": "Pacientes",
   "months": [
     "Enero",
     "Febrero",
@@ -173,6 +175,20 @@
     "Noviembre",
     "Diciembre"
   ],
+  "DAY_HEMOMEDICI":{
+    "NAME": "Nombre",
+    "HEMOPERWEEK":"Nº Hemodiálisis a la semana",
+    "EPO_DOSIS": "EPO Dosis",
+    "EPOPERWEEK": "Nº de Epo por semana",
+    "TOTALPERWEEK": "Total por semana",
+    "HIERRO": "HIERRO" 
+  },
+  "PACIENT": {
+    "NAME": "Nombre",
+    "AGE": "Edad",
+    "DRY_WEIGHT": "Peso Seco",
+    "WEIGHTPREHD": "Peso pre HD" 
+  },
   "movement": {
     "movements": "Movimientos",
     "AMOUNT": "Cantidad",

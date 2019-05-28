@@ -47,7 +47,9 @@
   },
   "adminItems": {
     "ADMIN": "Admin",
-    "CITIES": "Cities",
+    "LISTPACIENTS": "Patients list",
+    "LISTDRS": "Doctors list",
+    "LISTNURSERING": "Nursing list",
     "USERS": "Users"
   },
   "roles": {
@@ -92,8 +94,8 @@
     "CONFIRM_PASSWORD": "Confirm Password"
   },
   "landing": {
-    "TITLE": "Invest like the big ones",
-    "DESCRIPTION": "Análisis financiero basado en inteligencia artificial a tu alcance."
+    "TITLE": "A Virtual Medical System to you service.",
+    "DESCRIPTION": "In a few moments, you can see the results"
   },
   "home": {
     "TITLE": "Protected Home",
@@ -156,6 +158,20 @@
     "COUNTRY": "Country",
     "SAVE": "Save",
     "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
+  },
+  "DAY_HEMOMEDICI":{
+    "NAME": "Nombre",
+    "HEMOPERWEEK":"Nº Hemodiálisis a la semana",
+    "EPO_DOSIS": "EPO Dosis",
+    "EPOPERWEEK": "Nº de Epo por semana",
+    "TOTALPERWEEK": "Total por semana",
+    "HIERRO": "HIERRO" 
+  },
+  "PACIENT": {
+    "NAME": "Nombre",
+    "AGE": "Edad",
+    "DRY_WEIGHT": "Peso Seco",
+    "WEIGHTPREHD": "Peso pre HD" 
   },
   "movement": {
     "movements": "Movements",

@@ -1,5 +1,5 @@
 const state = {
-  appTitle: 'Panel - Mexicoin'
+  appTitle: 'SNA - Sistemas Nefrológicos Automatizados'
 }
 
 const getters = {

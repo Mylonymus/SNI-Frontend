@@ -4,7 +4,7 @@
       <v-flex xs12 sm4 offset-sm4>
         <form class="loginForm" @submit.prevent="submit">
           <v-layout row mt-0>
-            <Heading :color="primary" :title="$t('login.TITLE')" />
+            <Heading :title="$t('login.TITLE')" />
           </v-layout>
           <v-layout column>
             <v-flex>
