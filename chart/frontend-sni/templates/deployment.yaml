@@ -49,7 +49,7 @@ spec:
         image: "{{ template "node.image" . }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         workingDir: /app
-        command: ['/bin/bash', '-c', 'cp -rL /app/temp /app/frontend-mexicoin && cd frontend-mexicoin && npm install --only=prod']
+        command: ['/bin/bash', '-c', 'cp -rL /app/temp /app/frontend-sni && cd frontend-sni && npm install --only=prod']
         env:
         - name: HOME
           value: /tmp

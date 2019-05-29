@@ -1,8 +1,8 @@
 apiVersion: v1
-name: frontend-mexicoin
+name: frontend-sni
 version: 0.1.1
 appVersion: 0.1.0
-description: Frontend mexicoin Helm chart.
+description: Frontend SNI Helm chart.
 keywords:
 - node
 - javascript
@@ -10,7 +10,7 @@ keywords:
 - git-sync
 - helm
 maintainers:
-- name: David Canillas
-  email: dc@grupoptm.com
+- name: José Vázquez
+  email: mylo@bigpyx.com
 engine: gotpl
 icon: https://bitnami.com/assets/stacks/nodejs/img/nodejs-stack-110x117.png
