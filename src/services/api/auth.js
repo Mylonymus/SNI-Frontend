@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default {
   userLogin(payload) {
-    debugger;
+    debugger
     return axios.post('/login', payload)
   },
   refreshToken() {

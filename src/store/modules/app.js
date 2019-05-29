@@ -1,5 +1,5 @@
 const state = {
-  appTitle: 'SNA - Sistemas Nefrológicos Automatizados'
+  appTitle: 'SNI - Sistemas Nefrológicos Informáticos'
 }
 
 const getters = {

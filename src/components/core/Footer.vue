@@ -1,6 +1,5 @@
 <template>
   <footer>
-     
     <v-container fluid>
       <v-layout justify-space-around>
         <v-flex md8>
@@ -12,7 +11,7 @@
               :lazy-src="`/logo_bigpyx.png`"
             />
           </a>
-          Todos los derechos reservados 
+          Todos los derechos reservados
           <a
             style="float:right;margin-top:-20px;"
             target="_blank"
@@ -27,7 +26,7 @@
           </a>
         </v-flex>
       </v-layout>
-    </v-container> 
+    </v-container>
   </footer>
 </template>
 

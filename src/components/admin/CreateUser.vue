@@ -3,26 +3,26 @@
     :value="value"
     @input="$emit('input')"
     max-width="800px"
-    content-class="dlgNewEditItem"
+    content-class="dlgNewCreateItem"
   >
     <v-card>
       <v-card-title>
-        <span class="headline">{{ titleDialog }}</span>
+        <span class="headline">{{ $t('users.NEW_ITEM') }}</span>
       </v-card-title>
       <v-card-text>
         <v-container grid-list-md>
           <v-layout wrap>
-            <template v-if="editedUser._id">
+            <template v-if="editedItem._id">
               <v-flex xs12 md4>
                 <label for="createdAt">{{ $t('common.CREATED') }}</label>
                 <div name="createdAt">
-                  {{ getFormat(editedUser.createdAt) }}
+                  {{ getFormat(editedItem.createdAt) }}
                 </div>
               </v-flex>
               <v-flex xs12 md4>
                 <label for="updatedAt">{{ $t('common.UPDATED') }}</label>
                 <div name="updatedAt">
-                  {{ getFormat(editedUser.updatedAt) }}
+                  {{ getFormat(editedItem.updatedAt) }}
                 </div>
               </v-flex>
               <v-flex xs12 md4>
@@ -31,7 +31,7 @@
                 </label>
                 <div
                   name="verified"
-                  v-html="trueFalse(editedUser.verified)"
+                  v-html="trueFalse(editedItem.verified)"
                 ></div>
               </v-flex>
             </template>
@@ -39,7 +39,7 @@
               <v-text-field
                 id="name"
                 name="name"
-                v-model="editedUser.name"
+                v-model="editedItem.name"
                 :label="$t('users.headers.NAME')"
                 :data-vv-as="$t('users.headers.NAME')"
                 :error="errors.has('name')"
@@ -53,7 +53,7 @@
                 id="email"
                 name="email"
                 type="email"
-                v-model="editedUser.email"
+                v-model="editedItem.email"
                 :label="$t('users.headers.EMAIL')"
                 :data-vv-as="$t('users.headers.EMAIL')"
                 :error="errors.has('email')"
@@ -62,14 +62,14 @@
                 autocomplete="off"
               ></v-text-field>
             </v-flex>
-            <template v-if="!editedUser._id">
+            <template v-if="!editedItem._id">
               <v-flex xs12 md6>
                 <v-text-field
                   id="password"
                   name="password"
                   type="password"
                   :label="$t('users.PASSWORD')"
-                  v-model="editedUser.password"
+                  v-model="editedItem.password"
                   :data-vv-as="$t('users.PASSWORD')"
                   :error="errors.has('password')"
                   :error-messages="errors.collect('password')"
@@ -85,7 +85,7 @@
                   name="confirmPassword"
                   type="password"
                   :label="$t('users.CONFIRM_PASSWORD')"
-                  v-model="editedUser.confirmPassword"
+                  v-model="editedItem.confirmPassword"
                   :data-vv-as="$t('users.PASSWORD')"
                   :error="errors.has('confirmPassword')"
                   :error-messages="errors.collect('confirmPassword')"
@@ -100,7 +100,7 @@
                 clearable
                 id="role"
                 name="role"
-                v-model="editedUser.role"
+                v-model="editedItem.role"
                 :items="roles"
                 item-text="name"
                 item-value="value"
@@ -119,7 +119,7 @@
                 type="text"
                 :label="$t('myProfile.COUNTRY')"
                 :search-input.sync="searchCountry"
-                v-model="editedUser.country"
+                v-model="editedItem.country"
                 :items="countries"
                 clearable
                 :no-data-text="$t('myProfile.NO_RESULTS_FOUND')"
@@ -137,8 +137,8 @@
                 name="city"
                 :label="$t('myProfile.CITY')"
                 :search-input.sync="searchCity"
-                v-model="editedUser.city"
-                :items="getCitiesByCountry(editedUser.country)"
+                v-model="editedItem.city"
+                :items="getCitiesByCountry(editedItem.country)"
                 clearable
                 :no-data-text="$t('myProfile.NO_RESULTS_FOUND')"
                 :data-vv-as="$t('myProfile.CITY')"
@@ -154,7 +154,7 @@
                 id="phone"
                 name="phone"
                 type="tel"
-                v-model="editedUser.phone"
+                v-model="editedItem.phone"
                 :label="$t('users.headers.PHONE')"
                 :data-vv-as="$t('users.headers.PHONE')"
                 :error="errors.has('phone')"
@@ -193,12 +193,12 @@ export default {
     searchCountry: '',
     searchCity: '',
     countries,
-    editedUser: {}
+    editedItem: {}
   }),
   props: ['value', 'item', 'save'],
   watch: {
-    item(newValue) { 
-      this.editedUser = newValue && Object.keys(newValue) ? newValue : {}
+    item(newValue) {
+      this.editedItem = newValue && Object.keys(newValue) ? newValue : {}
     }
   },
   computed: {
@@ -209,24 +209,19 @@ export default {
       ]
     },
     formTitle() {
-      return this.editedUser && this.editedUser._id
+      return this.editedItem && this.editedItem._id
         ? this.$t('PATIENTS_LIST.dataTable.EDIT_ITEM')
         : this.$t('PATIENTS_LIST.dataTable.NEW_ITEM')
-    },
-    titleDialog(){
-      return this.editedUser && this.editedUser._id
-      ? this.$t('users.EDIT_ITEM')
-      : this.$t('users.NEW_ITEM')
     }
   },
   methods: {
     ...mapActions(['editUser', 'saveUser']),
     getCitiesByCountry,
     close() {
-      this.editedUser = {}
+      this.editedItem = {}
       this.$emit('input')
       setTimeout(() => {
-        this.editedUser = Object.assign({}, this.defaultItem)
+        this.editedItem = Object.assign({}, this.defaultItem)
       }, 300)
     },
     getFormat(date) {
@@ -245,7 +240,7 @@ export default {
       try {
         const valid = await this.$validator.validateAll()
         if (valid) {
-          this.save(this.editedUser)
+          this.save(this.editedItem)
           this.close()
           return
         }

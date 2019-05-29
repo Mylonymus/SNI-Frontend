@@ -56,6 +56,42 @@
     "ADMIN": "Administrador",
     "USER": "Usuario"
   },
+  "PATIENTS_LIST": {
+    "TITLE": "Listado de Pacientes",
+    "dataTable": {
+      "NEW_ITEM": "Nuevo Paciente",
+      "EDIT_ITEM": "Editar paciente",
+      "CANCEL": "Cancelar",
+      "SAVE": "Guardar",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "RESET": "Reiniciar",
+      "ACTIONS": "Acciones",
+      "ROWS_PER_PAGE": "Elementos por página",
+      "NO_DATA": "No hay datos",
+      "NO_RESULTS": "No hay resultados",
+      "OF": "de",
+      "SEARCH": "Buscar"
+    }
+  }, 
+  "DRS_LIST": {
+    "TITLE": "Listado de Doctores",
+    "dataTable": {
+      "NEW_ITEM": "Nuevo Doctor",
+      "EDIT_ITEM": "Editar doctor",
+      "CANCEL": "Cancelar",
+      "SAVE": "Guardar",
+      "EDIT": "Editar",
+      "DELETE": "Eliminar",
+      "RESET": "Reiniciar",
+      "ACTIONS": "Acciones",
+      "ROWS_PER_PAGE": "Elementos por página",
+      "NO_DATA": "No hay datos",
+      "NO_RESULTS": "No hay resultados",
+      "OF": "de",
+      "SEARCH": "Buscar"
+    }
+  },
   "dataTable": {
     "NEW_MOVEMENT": "Nuevo movimiento",
     "NEW_ITEM": "Nuevo inversor",
@@ -79,11 +115,14 @@
     }
   },
   "users": {
-    "TITLE": "Inversores Registrados",
+    "TITLE": "Usuarios Registrados",
+    "NEW_ITEM": "Nuevo Usuario",
+    "EDIT_ITEM": "Editar Usuario",
     "headers": {
       "NAME": "Nombre",
       "EMAIL": "E-mail",
       "ROLE": "Rol",
+      "SKILL": "Especialidad",
       "VERIFIED": "Verificado",
       "CITY": "Ciudad",
       "COUNTRY": "País",

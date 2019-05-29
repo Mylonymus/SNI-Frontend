@@ -89,10 +89,9 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        
         <v-btn
-          flat 
-          to="home"
+          flat
+          to="/home"
           exact
           class="hidden-sm-and-down btnHome"
         >
@@ -102,7 +101,7 @@
 
         <v-menu v-if="admin" offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn 
+            <v-btn
               flat 
               v-on="on"
             >
@@ -132,7 +131,7 @@
         </v-menu> 
 
         <LocaleChanger />
-        <v-menu offset-y>
+        <v-menu v-if="isTokenSet" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn 
               flat 
@@ -245,20 +244,20 @@ export default {
       return [
         {
           title: this.$t('adminItems.LISTPACIENTS'),
-          link: 'admin-cities',
-          icon: 'view_list' ,
+          link: 'patients-list',
+          icon: 'view_list',
           class: 'btnAdminUsers'
         },
         {
           title: this.$t('adminItems.LISTDRS'),
-          link: 'admin-cities',
-          icon: 'supervised_user_circle' ,
+          link: 'drs-list',
+          icon: 'supervised_user_circle',
           class: 'btnAdminUsers'
         },
         {
           title: this.$t('adminItems.LISTNURSERING'),
-          link: 'admin-cities',
-          icon: 'supervisor_account' ,
+          link: 'nursering-list',
+          icon: 'supervisor_account',
           class: 'btnAdminUsers'
         },
         {
@@ -324,7 +323,7 @@ export default {
   color:#007c93 !important;
   font-size:14px;
 }
-.menuDerecho div a, .menuDerecho, .menuDerecho div, .menuDerecho div button {
+.menuDerecho div a,.menuDerecho,.menuDerecho div,.menuDerecho div button{
   margin: 0;
   padding: 0;
   min-width: 110px;

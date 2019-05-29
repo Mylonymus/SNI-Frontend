@@ -1,20 +1,29 @@
 export default [
   {
-    path: '/pacientes/cities',
-    name: 'admin-cities',
+    path: '/pacientes/listado',
+    name: 'patients-list',
     meta: {
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "admin-cities" */ '@/components/AdminCities.vue')
+      import(/* webpackChunkName: "admin-cities" */ '@/components/PatientsList.vue')
   },
   {
-    path: '/pacientes/listado',
-    name: 'admin-users',
+    path: '/doctores/listado',
+    name: 'drs-list',
     meta: {
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "admin-users" */ '@/components/AdminUsers.vue')
+      import(/* webpackChunkName: "admin-users" */ '@/components/DrsList.vue')
+  },
+  {
+    path: '/enfermeria/listado',
+    name: 'nursering-list',
+    meta: {
+      requiresAuth: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "admin-users" */ '@/components/NurseringList.vue')
   }
 ]

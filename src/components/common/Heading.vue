@@ -13,7 +13,7 @@ export default {
 }
 </script>
 <style scoped>
-form h1{
-  color:#006f8a;
+form h1 {
+  color: #006f8a;
 }
 </style>

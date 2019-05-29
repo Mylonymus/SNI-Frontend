@@ -2,7 +2,7 @@
   <div class="bg-site">
     <v-layout wrap>
       <v-flex xs12 sm12 md4 mt-3 pl-4>
-        <HeadingSection :title="$t('users.TITLE')" icon="people" />
+        <HeadingSection :title="$t('DRS_LIST.TITLE')" icon="people" />
       </v-flex>
       <v-flex xs12 sm6 md4 px-3>
         <v-text-field
@@ -19,14 +19,14 @@
           color="primary"
           @click="
             editedItem = {}
-            dialog = true 
+            dialog = true
           "
           class="btnNewItem pr-4"
         >
           <v-icon class="mr-2">add</v-icon>
-          {{ $t('users.NEW_ITEM') }}
+          {{ $t('DRS_LIST.dataTable.NEW_ITEM') }}
         </v-btn>
-        <UserForm v-model="dialog" :save="save" :item="editedItem"/>
+        <UserForm v-model="dialog" :save="save" :item="editedItem" />
       </v-flex>
     </v-layout>
     <v-flex xs12 sm12 pa-3>
@@ -297,7 +297,6 @@ export default {
       this.editedInv = data
       this.invUser = user
       this.inv_dialog = true
-      debugger;
     },
     async deleteItem(item) {
       try {

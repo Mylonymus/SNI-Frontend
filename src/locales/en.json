@@ -80,11 +80,14 @@
     }
   },
   "users": {
-    "TITLE": "Users",
+    "TITLE": "Registered Users",
+    "NEW_ITEM": "New User",
+    "EDIT_ITEM": "Edit User",
     "headers": {
       "NAME": "Name",
       "EMAIL": "E-mail",
       "ROLE": "Role",
+      "SKILL": "Specialty",
       "VERIFIED": "Verified",
       "CITY": "City",
       "COUNTRY": "Country",
