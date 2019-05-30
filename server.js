@@ -11,7 +11,7 @@ app.use(
 )
 app.use(staticFileMiddleware)
 
-const port = 80
+const port = 3000
 app.listen(port, () => {
   console.log(`Listening on port ${port}!`)
 })
