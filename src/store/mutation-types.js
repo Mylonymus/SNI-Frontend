@@ -27,9 +27,22 @@ export const TOTAL_CITIES = 'TOTAL_CITIES'
 // Admin - Users
 export const USERS = 'USERS'
 export const TOTAL_USERS = 'TOTAL_USERS'
+// Patients - List
+export const PATIENTS = 'PATIENTS'
+export const TOTAL_PATIENTS = 'TOTAL_PATIENTS'
+// Admin - Registers
+export const ADMIN_PATIENTS = 'ADMIN_PATIENTS'
+export const ADMIN_TOTAL_PATIENTS = 'ADMIN_TOTAL_PATIENTS'
 // Admin - Movements
 export const ADMIN_MOVEMENTS = 'ADMIN_MOVEMENTS'
 export const ADMIN_TOTAL_MOVEMENTS = 'ADMIN_TOTAL_MOVEMENTS'
 // Admin - Users
 export const MOVEMENTS = 'MOVEMENTS'
 export const TOTAL_MOVEMENTS = 'TOTAL_MOVEMENTS'
+
+// Admin - Movements
+export const ADMIN_RECORDS = 'ADMIN_RECORDS'
+export const ADMIN_TOTAL_RECORDS = 'ADMIN_TOTAL_RECORDS'
+// Admin - Users
+export const RECORDS = 'RECORDS'
+export const TOTAL_RECORDS = 'TOTAL_RECORDS'

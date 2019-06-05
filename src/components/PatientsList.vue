@@ -18,7 +18,7 @@
         <v-btn
           color="primary"
           @click="
-            editedItem = {}
+            editedPatient = {}
             dialog = true
           "
           class="btnNewItem pr-4"
@@ -26,7 +26,7 @@
           <v-icon class="mr-2">add</v-icon>
           {{ $t('PATIENTS_LIST.dataTable.NEW_ITEM') }}
         </v-btn>
-        <UserForm v-model="dialog" :save="save" :item="editedItem" />
+        <PatientForm v-model="dialog" :save="save" :item="editedPatient" />
       </v-flex>
     </v-layout>
     <v-flex xs12 sm12 pa-3>
@@ -62,7 +62,7 @@
                   icon
                   class="mx-0"
                   slot="activator"
-                  @click="editInvestment(props.item)"
+                  @click="viewDetallesPaciente(props.item)"
                 >
                   <v-icon>attach_money</v-icon>
                 </v-btn>
@@ -73,7 +73,7 @@
                   icon
                   class="mx-0"
                   slot="activator"
-                  @click="deleteItem(props.item)"
+                  @click="deletePatient(props.item)"
                 >
                   <v-icon>delete</v-icon>
                 </v-btn>
@@ -82,9 +82,8 @@
             </v-layout>
           </td>
           <td>{{ props.item.name }}</td>
-          <td>{{ props.item.email }}</td>
-          <td>{{ roleName(props.item.role) }}</td>
-          <td v-html="trueFalse(props.item.verified)"></td>
+          <td>{{ props.item.lastname }}</td>
+          <td>{{ getFormat(props.item.dateBorn) }}</td>
           <td>{{ props.item.city }}</td>
           <td>{{ props.item.country }}</td>
           <td>{{ props.item.phone }}</td>
@@ -101,26 +100,26 @@
     </v-flex>
     <ErrorMessage />
     <SuccessMessage />
-    <InvForm
-      v-model="inv_dialog"
-      :save="saveInv"
-      :item="editedInv"
-      :user="invUser"
+    <HemoForm
+      v-model="hemo_dialog"
+      :save="savePatient"
+      :item="editedPatient"
+      :user="hemoPatient"
     />
   </div>
 </template>
 
 <script>
-import UserForm from '@/components/admin/EditUser'
-import InvForm from '@/components/admin/Pacient'
+import PatientForm from '@/components/admin/editPatient'
+import HemoForm from '@/components/admin/DetallesPaciente'
 import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import HeadingSection from '@/components/common/HeadingSection.vue'
 import axios from 'axios'
 export default {
   components: {
-    UserForm,
-    InvForm,
+    PatientForm,
+    HemoForm,
     HeadingSection
   },
   metaInfo() {
@@ -136,13 +135,13 @@ export default {
       delayTimer: null,
       dialog: false,
       search: '',
-      inv_dialog: false,
+      hemo_dialog: false,
       pagination: {},
-      editedItem: {},
-      editedInv: {},
-      invUser: {},
+      editedPatient: {},
+      editedHemoPatient: {},
+      hemoPatient: {},
       defaultItem: {},
-      fieldsToSearch: ['name', 'email', 'role', 'city', 'country', 'phone']
+      fieldsToSearch: ['name', 'lastname', 'city', 'country', 'phone']
     }
   },
   computed: {
@@ -164,29 +163,23 @@ export default {
           width: 100
         },
         {
-          text: this.$i18n.t('users.headers.NAME'),
+          text: 'Nombre',
           align: 'left',
           sortable: true,
           value: 'name'
         },
         {
-          text: this.$i18n.t('users.headers.EMAIL'),
+          text: 'Apellidos',
           align: 'left',
           sortable: true,
-          value: 'email'
-        },
+          value: 'lastname'
+        }, 
         {
-          text: this.$i18n.t('users.headers.ROLE'),
+          text: 'Fecha Nacimiento',
           align: 'left',
           sortable: true,
-          value: 'role'
-        },
-        {
-          text: this.$i18n.t('users.headers.VERIFIED'),
-          align: 'left',
-          sortable: true,
-          value: 'verified'
-        },
+          value: 'dateBorn'
+        }, 
         {
           text: this.$i18n.t('users.headers.CITY'),
           align: 'left',
@@ -220,10 +213,10 @@ export default {
       ]
     },
     items() {
-      return this.$store.state.adminUsers.users
+      return this.$store.state.patients.patients
     },
     totalItems() {
-      return this.$store.state.adminUsers.totalUsers
+      return this.$store.state.patients.totalPatients
     }
   },
   watch: {
@@ -231,7 +224,7 @@ export default {
       async handler() {
         try {
           this.dataTableLoading = true
-          await this.getUsers(
+          await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -252,18 +245,15 @@ export default {
   methods: {
     ...mapActions([
       'getAllCities',
-      'getUsers',
-      'editUser',
-      'saveUser',
-      'deleteUser'
+      'getPatients',
+      'editPatient',
+      'savePatient',
+      'deletePatient'
     ]),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'ddd, MMMM D YYYY, h:mm a')
-    },
-    roleName(value) {
-      return value === 'admin' ? this.$t('roles.ADMIN') : this.$t('roles.USER')
-    },
+    }, 
     trueFalse(value) {
       return value
         ? '<i aria-hidden="true" class="v-icon material-icons green--text" style="font-size: 16px;">done</i>'
@@ -272,7 +262,7 @@ export default {
     async doSearch() {
       try {
         this.dataTableLoading = true
-        await this.getUsers(
+        await this.getPatients(
           buildPayloadPagination(this.pagination, this.buildSearch())
         )
         this.dataTableLoading = false
@@ -287,16 +277,16 @@ export default {
         : {}
     },
     editItem(item) {
-      this.editedItem = Object.assign({}, item)
+      this.editedPatient = Object.assign({}, item)
       this.dialog = true
     },
-    async editInvestment(user) {
-      console.log(user)
-      const { data } = await axios.get(`/investments/user_id/${user._id}`)
+    async viewDetallesPaciente(user) {
+      console.log(user) 
+      const { data } = await axios.get('/detallesPaciente/patient_id/'+user._id)
       console.log(data)
-      this.editedInv = data
-      this.invUser = user
-      this.inv_dialog = true
+      this.editedHemoPatient = data
+      this.hemoPatient = user
+      this.hemo_dialog = true
     },
     async deleteItem(item) {
       try {
@@ -312,8 +302,8 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.deleteUser(item._id)
-          await this.getUsers(
+          await this.deletePatient(item._id)
+          await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -323,29 +313,30 @@ export default {
         this.dataTableLoading = false
       }
     },
-    async saveInv() {},
+    async saveHemoSession() {},
     async save(item) {
       try {
         this.dataTableLoading = true
         // Updating item
         if (item._id) {
-          await this.editUser(item)
-          await this.getUsers(
+          await this.editPatient(item)
+          await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
         } else {
           // Creating new item
-          await this.saveUser({
+          await this.savePatient({
             name: item.name,
-            email: item.email,
-            password: item.password,
-            role: item.role,
+            lastname: item.lastname,
             phone: item.phone,
+            dateBorn: item.dateBorn,
             city: item.city,
-            country: item.country
+            country: item.country,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
           })
-          await this.getUsers(
+          await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
