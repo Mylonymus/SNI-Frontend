@@ -43,52 +43,44 @@
         :total-items="totalItems"
         class="elevation-1"
       >
-        <template v-slot:items="props">
-          <td class="fill-height px-0">
-            <v-layout class="justify-center">
-              <v-tooltip top>
-                <v-btn
-                  icon
-                  class="mx-0"
-                  slot="activator"
-                  @click="editItem(props.item)"
-                >
-                  <v-icon>edit</v-icon>
-                </v-btn>
-                <span>{{ $t('dataTable.EDIT') }}</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <v-btn
-                  icon
-                  class="mx-0"
-                  slot="activator"
-                  @click="viewDetallesPaciente(props.item)"
-                >
-                  <v-icon>attach_money</v-icon>
-                </v-btn>
-                <span>{{ $t('dataTable.EDIT_INVESTMENT') }}</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <v-btn
-                  icon
-                  class="mx-0"
-                  slot="activator"
-                  @click="deletePatient(props.item)"
-                >
-                  <v-icon>delete</v-icon>
-                </v-btn>
-                <span>{{ $t('dataTable.DELETE') }}</span>
-              </v-tooltip>
-            </v-layout>
-          </td>
-          <td>{{ props.item.name }}</td>
-          <td>{{ props.item.lastname }}</td>
-          <td>{{ getFormat(props.item.dateBorn) }}</td>
-          <td>{{ props.item.city }}</td>
-          <td>{{ props.item.country }}</td>
-          <td>{{ props.item.phone }}</td>
-          <td>{{ getFormat(props.item.createdAt) }}</td>
-          <td>{{ getFormat(props.item.updatedAt) }}</td>
+        <template v-slot:items="props" >
+          <tr @click="viewDetallesPaciente(props.item)">
+          
+            <td class="fill-height px-0">
+              <v-layout class="justify-center">
+                <v-tooltip top>
+                  <v-btn
+                    icon
+                    class="mx-0"
+                    slot="activator"
+                    @click="editItem(props.item)"
+                  >
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <span>{{ $t('dataTable.EDIT') }}</span>
+                </v-tooltip> 
+                <v-tooltip top>
+                  <v-btn
+                    icon
+                    class="mx-0"
+                    slot="activator"
+                    @click="deletePatient(props.item)"
+                  >
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                  <span>{{ $t('dataTable.DELETE') }}</span>
+                </v-tooltip>
+              </v-layout>
+            </td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.lastname }}</td>
+            <td>{{ getFormat(props.item.dateBorn) }}</td>
+            <td>{{ props.item.city }}</td>
+            <td>{{ props.item.country }}</td>
+            <td>{{ props.item.phone }}</td>
+            <td>{{ getFormat(props.item.createdAt) }}</td>
+            <td>{{ getFormat(props.item.updatedAt) }}</td>
+          </tr>
         </template>
         <template v-slot:pageText="props">
           {{ props.pageStart }} - {{ props.pageStop }} {{ $t('dataTable.OF') }}
@@ -103,7 +95,7 @@
     <HemoForm
       v-model="hemo_dialog"
       :save="savePatient"
-      :item="editedPatient"
+      :item="editedHemoPatient"
       :user="hemoPatient"
     />
   </div>
@@ -276,16 +268,28 @@ export default {
         ? { query: this.search, fields: this.fieldsToSearch.join(',') }
         : {}
     },
-    editItem(item) {
+    editItem(item) { 
       this.editedPatient = Object.assign({}, item)
       this.dialog = true
     },
     async viewDetallesPaciente(user) {
       console.log(user) 
       const { data } = await axios.get('/detallesPaciente/patient_id/'+user._id)
+
+
+      const { records } = await axios.get(
+        '/records/'+ user._id +'/all'
+      )
+
       console.log(data)
+      console.log(records) 
+      this.hemoPatient = user 
+      
       this.editedHemoPatient = data
-      this.hemoPatient = user
+      this.editedHemoPatient.patient_id = data.patient_id; 
+      this.editedHemoPatient.name = this.hemoPatient.name;
+      this.editedHemoPatient.lastname = this.hemoPatient.lastname;
+
       this.hemo_dialog = true
     },
     async deleteItem(item) {

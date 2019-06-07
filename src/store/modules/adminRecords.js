@@ -23,6 +23,7 @@ const actions = {
         .getRecords(payload)
         .then(response => {
           if (response.status === 200) {
+            
             commit(types.ADMIN_RECORDS, response.data.docs)
             commit(types.ADMIN_TOTAL_RECORDS, response.data.totalDocs)
             resolve()
@@ -36,13 +37,14 @@ const actions = {
   editRecord({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
-        amount: payload.amount,
-        tx_type: payload.tx_type,
-        date: payload.date,
-        currency: payload.currency
+        patient_id: payload.patient_id,
+        name: payload.name,
+        lastname: payload.lastname,
+        age: payload.age,
+        date: payload.date
       }
       api
-        .editRecord(payload._id, data)
+        .editRecord(payload.patient_id, data)
         .then(response => {
           if (response.status === 200) {
             buildSuccess(
@@ -58,7 +60,8 @@ const actions = {
           handleError(error, commit, reject)
         })
     })
-  },
+  }, 
+
   saveRecord({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api

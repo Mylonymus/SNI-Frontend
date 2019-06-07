@@ -1,8 +1,7 @@
 import axios from 'axios'
-
 export default {
   getRecords(params) {
-    return axios.get('/records', {
+    return axios.get(`/records/${patient_id}/all`, {
       params: params
     })
   },

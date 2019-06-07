@@ -57,47 +57,7 @@ const actions = {
           handleError(error, commit, reject)
         })
     })
-  },
-  saveRecord({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      api
-        .saveRecord(payload)
-        .then(response => {
-          if (response.status === 201) {
-            buildSuccess(
-              {
-                msg: 'common.SAVED_SUCCESSFULLY'
-              },
-              commit,
-              resolve
-            )
-          }
-        })
-        .catch(error => {
-          handleError(error, commit, reject)
-        })
-    })
-  },
-  deleteRecord({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      api
-        .deleteRecord(payload)
-        .then(response => {
-          if (response.status === 200) {
-            buildSuccess(
-              {
-                msg: 'common.DELETED_SUCCESSFULLY'
-              },
-              commit,
-              resolve
-            )
-          }
-        })
-        .catch(error => {
-          handleError(error, commit, reject)
-        })
-    })
-  }
+  }, 
 }
 
 const mutations = {

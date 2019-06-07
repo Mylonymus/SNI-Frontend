@@ -296,8 +296,7 @@ export default {
       console.log(data)
       this.editedInv = data
       this.invUser = user
-      this.inv_dialog = true
-      debugger;
+      this.inv_dialog = true 
     },
     async deleteItem(item) {
       try {
