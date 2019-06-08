@@ -1,7 +1,9 @@
 import axios from 'axios'
 export default {
+
+  //LANZAR ERRORES SIN NO SE LANZAN LAS LLAMADAS COJONES!!
   getRecords(params) {
-    return axios.get(`/records/${patient_id}/all`, {
+    return axios.get(`/records/${params.patient_id}/all`, {
       params: params
     })
   },

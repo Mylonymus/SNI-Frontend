@@ -46,6 +46,4 @@ export const ADMIN_TOTAL_RECORDS = 'ADMIN_TOTAL_RECORDS'
 // Admin - Users
 export const RECORDS = 'RECORDS'
 export const TOTAL_RECORDS = 'TOTAL_RECORDS'
-// HemoRegisters - Users
-export const HEMORECORDS = 'HEMORECORDS'
-export const TOTAL_HEMORECORDS = 'TOTAL_HEMORECORDS'
+// HemoRegisters - Users 

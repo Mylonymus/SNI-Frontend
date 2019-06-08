@@ -49,7 +49,7 @@
                 </v-flex>
               </v-layout>
               <v-data-table
-                v-if="!!user._id"
+                v-if="!!item.patient_id"
                 must-sort
                 :loading="dataTableLoading"
                 :rows-per-page-text="$t('dataTable.ROWS_PER_PAGE')"
@@ -66,49 +66,35 @@
                   <td>
                     <v-layout row>
                       <v-tooltip top>
-                        <v-btn
-                          icon
-                          class="mx-0"
-                          slot="activator"
-                          @click="editItem(props.item)"
-                        >
+                        <v-btn icon class="mx-0" slot="activator" @click="editItem(props.item)">
                           <v-icon>edit</v-icon>
                         </v-btn>
                         <span>{{ $t('dataTable.EDIT') }}</span>
                       </v-tooltip>
                       <v-tooltip top>
-                        <v-btn
-                          icon
-                          class="mx-0"
-                          slot="activator"
-                          @click="deleteItem(props.item)"
-                        >
+                        <v-btn icon class="mx-0" slot="activator" @click="deleteItem(props.item)">
                           <v-icon>delete</v-icon>
                         </v-btn>
                         <span>{{ $t('dataTable.DELETE') }}</span>
                       </v-tooltip>
                     </v-layout>
                   </td>
-                  <td>
-                    {{ props.item.age }} 
-                  </td>
+                  <td>{{ props.item.age }}</td>
                   <td class="text-xs-right">{{ props.item.typeRecord }}</td>
-                  <td class="text-xs-right">
-                    {{ getFormat(props.item.date) }}
-                  </td>
+                  <td class="text-xs-right">{{ getFormat(props.item.date) }}</td>
                 </template>
               </v-data-table>
             </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
-    </v-card> 
-    <HemoRecordForm v-model="hemoRecordDialog" :item="HRItem" :save="saveRecord" />
+    </v-card>
+    <HemoRecordForm v-model="hemoRecordDialog" :item="HRItem" :save="saveRecord"/>
   </v-dialog>
 </template>
 
 <script>
-import { mapActions } from 'vuex' 
+import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import HemoRecordForm from './Record'
 import HeadingSection from '@/components/common/HeadingSection.vue'
@@ -126,7 +112,7 @@ export default {
     searchInput: '',
     delayTimer: null,
     pagination: {},
-    hemoRecords: [],
+    records: [],
     search: '',
     editedItem: {},
     HRItem: {},
@@ -146,14 +132,8 @@ export default {
     async item(newValue) {
       this.editedItem = newValue && Object.keys(newValue) ? newValue : {}
     },
-    
     pagination: {
-      
-      async handler() {
-        debugger;
-        if (!this.item.patient_id) {
-          return
-        }
+      async handler() {  
         try {
           this.dataTableLoading = true
           await this.retrieveAdminRecords({
@@ -164,6 +144,7 @@ export default {
           this.dataTableLoading = false
           // eslint-disable-next-line no-unused-vars
         } catch (error) {
+          console.log(error);
           this.dataTableLoading = false
         }
       },
@@ -177,11 +158,11 @@ export default {
     }
   },
   computed: {
-    items() {
-      return this.$store.state.adminRecords.records
+    items() { 
+      return this.$store.state.adminRecords.adminRecords
     },
     totalItems() {
-      return this.$store.state.adminRecords.totalRecords
+      return this.$store.state.adminRecords.totalAdminRecords
     },
     headers() {
       return [
@@ -219,7 +200,16 @@ export default {
       'deleteRecord',
       'retrieveAdminRecords',
       'clearAdminRecords'
-    ]),
+    ]), 
+    async created() {
+      try {
+        await this.getAllCities()
+        
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        return
+      }
+    },
     close() {
       this.editedItem = {}
       this.$emit('input')
@@ -273,7 +263,7 @@ export default {
     async saveItem() {
       try {
         const valid = await this.$validator.validateAll()
-        if (valid) { 
+        if (valid) {
           this.save(this.editedItem)
           this.close()
           return
@@ -286,16 +276,15 @@ export default {
       }
     },
     createItem(item) {
-      this.HRItem.patient_id = item.patient_id;
-      this.HRItem.name = item.name;
-      this.HRItem.lastname = item.lastname;
-      this.HRItem.age = item.age; 
-      this.hemoRecordDialog = true;
-    },
-
+      this.HRItem.patient_id = item.patient_id
+      this.HRItem.name = item.name
+      this.HRItem.lastname = item.lastname
+      this.HRItem.age = item.age
+      this.hemoRecordDialog = true
+    }, 
     editItem(item) {
-      this.HRItem = Object.assign({}, item);
-      this.hemoRecordDialog = true;
+      this.HRItem = Object.assign({}, item)
+      this.hemoRecordDialog = true
     },
     async deleteItem(item) {
       try {

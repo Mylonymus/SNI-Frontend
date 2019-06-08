@@ -3,13 +3,13 @@ import api from '@/services/api/adminRecords'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const state = {
-  movements: [],
-  totalRecords: 0
+  patients: [],
+  totalPatients: 0
 }
 
 const getters = {
-  getDetallesPaciente: state => state.records,
-  getTotalDetallesPaciente: state => state.totalRecords
+  getDetallesPaciente: state => state.patients,
+  getTotalDetallesPaciente: state => state.totalPatients
 }
 
 const actions = {
@@ -61,11 +61,11 @@ const actions = {
 }
 
 const mutations = {
-  [types.ADMIN_PATIENTS](state, records) {
-    state.records = records
+  [types.ADMIN_PATIENTS](state, patients) {
+    state.patients = patients
   },
   [types.ADMIN_TOTAL_PATIENTS](state, value) {
-    state.totalRecords = value
+    state.totalPatients = value
   }
 }
 

@@ -3,12 +3,12 @@ import api from '@/services/api/adminRecords'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const state = {
-  records: [],
-  totalRecords: 0
+  adminRecords: [],
+  totalAdminRecords: 0
 }
 
 const getters = {
-  getAdminRecords: state => state.records,
+  getAdminRecords: state => state.adminRecords,
   getTotalAdminRecords: state => state.totalRecords
 }
 
@@ -17,15 +17,15 @@ const actions = {
     commit(types.ADMIN_RECORDS, [])
     commit(types.ADMIN_TOTAL_RECORDS, 0)
   },
-  retrieveAdminRecords({ commit }, payload) {
+  retrieveAdminRecords({ commit }, payload) { 
     return new Promise((resolve, reject) => {
       api
         .getRecords(payload)
-        .then(response => {
+        .then(response => {  
           if (response.status === 200) {
-            
+            console.log('Detalles Paciente: '+ response.data.docs)
             commit(types.ADMIN_RECORDS, response.data.docs)
-            commit(types.ADMIN_TOTAL_RECORDS, response.data.totalDocs)
+            commit(types.ADMIN_TOTAL_RECORDS, response.data.totalDocs)  
             resolve()
           }
         })
@@ -106,10 +106,10 @@ const actions = {
 
 const mutations = {
   [types.ADMIN_RECORDS](state, records) {
-    state.records = records
+    state.adminRecords = records
   },
   [types.ADMIN_TOTAL_RECORDS](state, value) {
-    state.totalRecords = value
+    state.totalAdminRecords = value
   }
 }
 
