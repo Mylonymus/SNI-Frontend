@@ -2,7 +2,7 @@
   <v-dialog
     :value="value"
     @input="$emit('input')"
-    max-width="600px"
+    max-width="900px"
     content-class="dlgNewEditItem"
   >
     <v-card>

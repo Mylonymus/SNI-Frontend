@@ -1,13 +1,8 @@
 <template>
-  <v-dialog
-    :value="value"
-    @input="$emit('input')"
-    max-width="600px"
-    content-class="dlgNewEditItem"
-  >
+  <v-dialog :value="value" @input="$emit('input')" max-width="600px" content-class="dlgNewEditItem">
     <v-card>
       <v-card-title class="text-xs-center">
-        <HeadingSection :title="title" icon="attach_money" />
+        <HeadingSection :title="title" icon="attach_money"/>
       </v-card-title>
       <v-card-text>
         <v-container grid-list-md>
@@ -33,7 +28,7 @@
                 :label="$t('record.TYPE_RECORD')"
                 :data-vv-as="$t('record.TYPE_RECORD')"
               ></v-select>
-            </v-flex> 
+            </v-flex>
             <v-flex xs12 md6>
               <v-menu
                 ref="menu"
@@ -65,15 +60,8 @@
                 </template>
                 <v-date-picker v-model="editedItem.date" no-title scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="menu = false"
-                    >Cancel</v-btn
-                  >
-                  <v-btn
-                    flat
-                    color="primary"
-                    @click="$refs.menu.save(editedItem.date)"
-                    >OK</v-btn
-                  >
+                  <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.menu.save(editedItem.date)">OK</v-btn>
                 </v-date-picker>
               </v-menu>
             </v-flex>
@@ -82,12 +70,16 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red lighten3" flat @click="close" class="btnCancel">{{
+        <v-btn color="red lighten3" flat @click="close" class="btnCancel">
+          {{
           $t('dataTable.CANCEL')
-        }}</v-btn>
-        <v-btn flat @click="saveItem" class="btnSave primary">{{
+          }}
+        </v-btn>
+        <v-btn flat @click="saveItem" class="btnSave primary">
+          {{
           $t('dataTable.SAVE')
-        }}</v-btn>
+          }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -114,7 +106,7 @@ export default {
     HeadingSection
   },
   data: () => ({
-    typeRecord: ['Nefrología'], 
+    typeRecord: ['Nefrología'],
     defaultItem: {},
     editedItem: {},
     menu: false
@@ -145,14 +137,13 @@ export default {
       }, 300)
     },
     async saveItem() {
-      try {   
-        this.editedItem.patient_id = this.item.patient_id
+      try { 
         const valid = await this.$validator.validateAll()
-        if (valid) { 
-          this.save(this.editedItem)
-          this.close()
-          return
-        }
+        if (valid) {  
+            this.save(this.editedItem) 
+            this.close()
+            return 
+          } 
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
         console.log('err form', error)

@@ -89,7 +89,7 @@
         </v-container>
       </v-card-text>
     </v-card>
-    <HemoRecordForm v-model="hemoRecordDialog" :item="HRItem" :save="saveRecord"/>
+    <HemoRecordForm v-model="hemoRecordDialog" :item="HRItem" :save="saveRecordDetalle"/>
   </v-dialog>
 </template>
 
@@ -123,9 +123,16 @@ export default {
   watch: {
     async value(val) {
       if (val) {
-        //this.currentBalance()
+          this.dataTableLoading = true
+        await this.retrieveAdminRecords({
+          ...buildPayloadPagination(this.pagination, this.buildSearch()),
+          patient_id: this.item.patient_id
+        })
+          console.log('building')
+          this.dataTableLoading = false
       }
       if (!val) {
+        ;
         this.clearAdminRecords()
       }
     },
@@ -193,6 +200,13 @@ export default {
       ]
     }
   },
+
+    async created(){
+      
+    },  
+    async mounted(){
+      
+    },
   methods: {
     ...mapActions([
       'editRecord',
@@ -200,16 +214,7 @@ export default {
       'deleteRecord',
       'retrieveAdminRecords',
       'clearAdminRecords'
-    ]), 
-    async created() {
-      try {
-        await this.getAllCities()
-        
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        return
-      }
-    },
+    ]),  
     close() {
       this.editedItem = {}
       this.$emit('input')
@@ -222,10 +227,12 @@ export default {
     async doSearch() {
       try {
         this.dataTableLoading = true
-        await this.getPatients(
-          buildPayloadPagination(this.pagination, this.buildSearch())
-        )
-        this.dataTableLoading = false
+          await this.retrieveAdminRecords({
+            ...buildPayloadPagination(this.pagination, this.buildSearch()),
+            patient_id: this.item.patient_id
+          })
+          console.log('building')
+          this.dataTableLoading = falses
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
         this.dataTableLoading = false
@@ -260,12 +267,28 @@ export default {
         console.log(err)
       }
     },
-    async saveItem() {
+    async saveRecordDetalle(item) {
       try {
-        const valid = await this.$validator.validateAll()
+        const valid = await this.$validator.validateAll() 
         if (valid) {
-          this.save(this.editedItem)
-          this.close()
+          this.dataTableLoading = true 
+          if(item._id)
+          {
+            await this.editRecord(item) 
+          }else{  
+           await this.saveRecord({
+              patient_id:  this.item.patient_id,
+              age: item.age,
+              typeRecord: item.typeRecord,
+              date: item.date
+            }) 
+          }   
+          await this.retrieveAdminRecords({
+              ...buildPayloadPagination(this.pagination, this.buildSearch()),
+              patient_id: this.item.patient_id
+            })
+
+            this.dataTableLoading = false 
           return
         }
         // eslint-disable-next-line no-unused-vars
@@ -285,6 +308,7 @@ export default {
     editItem(item) {
       this.HRItem = Object.assign({}, item)
       this.hemoRecordDialog = true
+      
     },
     async deleteItem(item) {
       try {
@@ -300,18 +324,19 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.deleteHemoRecord(item._id)
-          await this.retrieveHemoRecords({
+          await this.deleteRecord(item._id) 
+          await this.retrieveAdminRecords({
             ...buildPayloadPagination(this.pagination, this.buildSearch()),
-            user_id: this.user._id
+            patient_id: this.item.patient_id
           })
+          console.log('building')
           this.dataTableLoading = false
         }
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
         this.dataTableLoading = false
       }
-    }
+    } 
   }
 }
 </script>

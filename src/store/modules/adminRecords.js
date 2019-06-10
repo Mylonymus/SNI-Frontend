@@ -9,7 +9,7 @@ const state = {
 
 const getters = {
   getAdminRecords: state => state.adminRecords,
-  getTotalAdminRecords: state => state.totalRecords
+  getTotalAdminRecords: state => state.totalAdminRecords
 }
 
 const actions = {
@@ -38,14 +38,14 @@ const actions = {
     return new Promise((resolve, reject) => {
       const data = {
         patient_id: payload.patient_id,
-        name: payload.name,
-        lastname: payload.lastname,
+        typeRecord: payload.typeRecord,
         age: payload.age,
         date: payload.date
       }
+      
       api
-        .editRecord(payload.patient_id, data)
-        .then(response => {
+        .editRecord(payload._id, data)
+        .then(response => { 
           if (response.status === 200) {
             buildSuccess(
               {
@@ -60,8 +60,7 @@ const actions = {
           handleError(error, commit, reject)
         })
     })
-  }, 
-
+  },
   saveRecord({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api

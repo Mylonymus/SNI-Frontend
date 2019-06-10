@@ -219,7 +219,6 @@ export default {
           await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
-          debugger;
           this.dataTableLoading = false
           // eslint-disable-next-line no-unused-vars
         } catch (error) {
@@ -276,7 +275,7 @@ export default {
     async viewDetallesPaciente(user) {
       console.log(user) 
       const { data } = await axios.get('/detallesPaciente/patient_id/'+user._id)
-        
+      debugger;
       console.log(data) 
       this.hemoPatient = user 
       
