@@ -2,23 +2,23 @@
   <v-dialog :value="value" @input="$emit('input')" max-width="600px" content-class="dlgNewEditItem">
     <v-stepper v-model="e1">
       <v-stepper-header>
-        <v-stepper-step :complete="e1 > 1" @click="e1 = 1" step="1">Step 1</v-stepper-step>
+        <v-stepper-step :complete="e1 > 1" @click="e1 = 1" step="1">{{$t('record.STEP')}} 1</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 2" @click="e1 = 2" step="2">Step 2</v-stepper-step>
+        <v-stepper-step :complete="e1 > 2" @click="e1 = 2" step="2">{{$t('record.STEP')}} 2</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step  :complete="e1 > 3" @click="e1 = 3" step="3">Step 3</v-stepper-step>
+        <v-stepper-step  :complete="e1 > 3" @click="e1 = 3" step="3">{{$t('record.STEP')}} 3</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step  :complete="e1 > 4" @click="e1 = 4" step="4">Step 4</v-stepper-step>
+        <v-stepper-step  :complete="e1 > 4" @click="e1 = 4" step="4">{{$t('record.STEP')}} 4</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="5" @click="e1 = 5">Step 5</v-stepper-step>
+        <v-stepper-step step="5" @click="e1 = 5">{{$t('record.STEP')}} 5</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
@@ -923,3 +923,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.v-stepper__header .v-stepper__step {
+    cursor: pointer;
+}
+</style>

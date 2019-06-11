@@ -27,7 +27,7 @@
             <v-flex xs12 md6>
               <h2 class="mt-3">
                 <v-icon>build</v-icon>
-                {{ $t('admin.INV_OPTIONS') }}
+                {{ $t('admin.STATUS_PATIENT') }}
               </h2>
             </v-flex>
             <v-flex xs12>
@@ -44,7 +44,7 @@
                     class="btnNewItem"
                   >
                     <v-icon class="mr-2">add</v-icon>
-                    {{ $t('dataTable.NEW_MOVEMENT') }}
+                    {{ $t('admin.NEW_RECORD') }}
                   </v-btn>
                 </v-flex>
               </v-layout>
@@ -79,8 +79,8 @@
                       </v-tooltip>
                     </v-layout>
                   </td>
-                  <td>{{ props.item.age }}</td>
-                  <td class="text-xs-right">{{ props.item.typeRecord }}</td>
+                  <td class="text-xs-center">{{ props.item.age }}</td>
+                  <td class="text-xs-center">{{ props.item.typeRecord }}</td>
                   <td class="text-xs-right">{{ getFormat(props.item.date) }}</td>
                 </template>
               </v-data-table>
@@ -180,20 +180,20 @@ export default {
           width: 100
         },
         {
-          text: this.$i18n.t('movement.AMOUNT'),
-          align: 'left',
+          text: this.$i18n.t('movement.age'),
+          align: 'center',
           sortable: true,
-          value: 'amount'
+          value: 'age'
         },
         {
-          text: this.$i18n.t('movement.TX_TYPE'),
-          align: 'left',
+          text: this.$i18n.t('record.SPECIALITY'),
+          align: 'center',
           sortable: true,
-          value: 'tx_type'
+          value: 'typeRecord'
         },
         {
           text: this.$i18n.t('movement.DATE'),
-          align: 'left',
+          align: 'right',
           sortable: true,
           value: 'date'
         }
@@ -270,14 +270,12 @@ export default {
     async saveRecordDetalle(item) {
       try {
         const valid = await this.$validator.validateAll() 
-        if (valid) {
-          debugger;
+        if (valid) { 
           this.dataTableLoading = true 
           if(item._id)
           {
             await this.editRecord(item) 
-          }else{  
-            debugger;
+          }else{   
            await this.saveRecord({
               patient_id:  this.item.patient_id, 
               name: this.item.name,
@@ -350,8 +348,7 @@ export default {
         return
       }
     },
-    createItem(item) { 
-      debugger;
+    createItem(item) {  
       this.HRItem.patient_id = item.patient_id
       this.HRItem.name = item.name
       this.HRItem.lastname = item.lastname

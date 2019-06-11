@@ -177,6 +177,7 @@
     "WEIGHTPREHD": "Peso pre HD" 
   },
   "movement": {
+    "hemoRegisters": "Listado de Registros",
     "movements": "Movements",
     "TX_TYPE": "Tx Type",
     "DATE": "Date",
@@ -192,7 +193,11 @@
     "ADD_MOVEMENT": "Add movement",
     "DELETE_MOVEMENT": "Delete movement",
     "USER_DETAILS": "User details",
-    "INV_OPTIONS": "Investment Options"
+    "INV_OPTIONS": "Investment Options",
+    "NEW_RECORD": "New record",
+    "EDIT_RECORD": "Edit record",
+    "DELETE_RECORD": "Delete record",
+    "PATIENT_DETAILS": "Patient's details"
   },
   "months": [
     "January",
