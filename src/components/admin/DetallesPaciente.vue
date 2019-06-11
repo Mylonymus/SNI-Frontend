@@ -38,7 +38,7 @@
                 <v-flex xs12 sm6 md text-xs-right mb-2 mt-4>
                   <v-btn
                     color="primary"
-                    @click="editedItem = {},createItem(item),
+                    @click="editedItem = {}, HRItem= {},createItem(item),
                       hemoRecordDialog = true
                     "
                     class="btnNewItem"
@@ -271,16 +271,68 @@ export default {
       try {
         const valid = await this.$validator.validateAll() 
         if (valid) {
+          debugger;
           this.dataTableLoading = true 
           if(item._id)
           {
             await this.editRecord(item) 
           }else{  
+            debugger;
            await this.saveRecord({
-              patient_id:  this.item.patient_id,
+              patient_id:  this.item.patient_id, 
+              name: this.item.name,
+              lastname: this.item.lastname,
               age: item.age,
               typeRecord: item.typeRecord,
-              date: item.date
+              date: item.date,
+              weightDry: item.weightDry,
+              weightPreHd: item.weightPreHd,
+              weightPostHd: item.weightPostHd,
+              initialTA: item.initialTA,
+              finalTA: item.finalTA,
+              filter: item.filter,
+              time: item.time,
+              qs: item.qs,
+              qd: item.qd,
+              heparina: item.heparina,
+              ufml: item.ufml,
+              profileUf: item.profileUf,
+              svsMeQL: item.svsMeQL,
+              profileSVS: item.profileSVS,
+              kmeql: item.kmeql,
+              epo: item.epo,
+              hierro: item.hierro,
+              complico: item.complico,
+              medidas: item.medidas,
+              acceVasc: item.acceVasc,
+              hb: item.hb,
+              hto: item.hto,
+              cmhb: item.cmhb,
+              vgm: item.vgm,
+              ferritina: item.ferritina,
+              satTR: item.satTR,
+              leucos: item.leucos,
+              plaque: item.plaque,
+              glucosa: item.glucosa,
+              urea: item.urea,
+              cr: item.cr,
+              acUrico: item.acUrico,
+              ca: item.ca,
+              p: item.p,
+              fosfAlcalin: item.fosfAlcalin,
+              pth: item.pth,
+              colest: item.colest,
+              tgc: item.tgc,
+              protTotales: item.protTotales,
+              albunin: item.albunin,
+              ast: item.ast,
+              alt: item.alt,
+              bi: item.bi,
+              bd: item.bd,
+              na: item.na,
+              k: item.k,
+              tp: item.tp,
+              tpp: item.tpp
             }) 
           }   
           await this.retrieveAdminRecords({
@@ -298,11 +350,11 @@ export default {
         return
       }
     },
-    createItem(item) {
+    createItem(item) { 
+      debugger;
       this.HRItem.patient_id = item.patient_id
       this.HRItem.name = item.name
       this.HRItem.lastname = item.lastname
-      this.HRItem.age = item.age
       this.hemoRecordDialog = true
     }, 
     editItem(item) {

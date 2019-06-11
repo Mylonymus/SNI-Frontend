@@ -243,6 +243,10 @@
     "INV_OPTIONS": "Opciones",
     "DEFAULT_PERCENT": "Porcentaje de ganancia mensual",
     "ADD_MOVEMENT": "Añadir movimiento",
-    "DELETE_MOVEMENT": "Borrar movimiento"
+    "DELETE_MOVEMENT": "Borrar movimiento",
+    "NEW_RECORD": "Nuevo registro",
+    "EDIT_RECORD": "Editar registro",
+    "DELETE_RECORD": "Eliminar registro",
+    "PATIENT_DETAILS": "Detalles del Paciente"
   }
 }

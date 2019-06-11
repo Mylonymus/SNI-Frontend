@@ -64,7 +64,7 @@
                     icon
                     class="mx-0"
                     slot="activator"
-                    @click="deletePatient(props.item)"
+                    @click="deleteItem(props.item)"
                   >
                     <v-icon>delete</v-icon>
                   </v-btn>
@@ -274,8 +274,7 @@ export default {
     },
     async viewDetallesPaciente(user) {
       console.log(user) 
-      const { data } = await axios.get('/detallesPaciente/patient_id/'+user._id)
-      debugger;
+      const { data } = await axios.get('/detallesPaciente/patient_id/'+user._id) 
       console.log(data) 
       this.hemoPatient = user 
       
@@ -301,6 +300,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
+          debugger
           await this.deletePatient(item._id)
           await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
