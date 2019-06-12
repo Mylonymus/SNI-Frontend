@@ -181,9 +181,13 @@
             
           </v-card>
 
-          <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
+          
+          <v-card-actions>
+            <v-btn  color="red lighten3" flat @click="close">Cancelar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="e1 = 2">Siguiente</v-btn>
+          </v-card-actions>
 
-          <v-btn flat>Cancel</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="2">
@@ -326,9 +330,12 @@
             </v-card-text>
           </v-card>
 
-          <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
-
-          <v-btn flat>Cancel</v-btn>
+          <v-card-actions>
+            <v-btn  color="red lighten3" flat @click="close">Cancelar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="e1 = 1">Atrás</v-btn>
+            <v-btn color="primary" @click="e1 = 3">Siguiente</v-btn> 
+          </v-card-actions>
         </v-stepper-content>
 
         <v-stepper-content step="3">
@@ -469,10 +476,13 @@
               </v-container>
             </v-card-text>
           </v-card>
-
-          <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
-
-          <v-btn flat>Cancel</v-btn>
+          <v-card-actions>
+            <v-btn  color="red lighten3" flat @click="close">Cancelar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="e1 = 2">Atrás</v-btn>
+            <v-btn color="primary" @click="e1 = 4">Siguiente</v-btn>
+          </v-card-actions>
+  
 
           
         </v-stepper-content>
@@ -615,9 +625,13 @@
               </v-container>
             </v-card-text>
           </v-card>
-          <v-btn color="primary" @click="e1 = 5">Continue</v-btn>
+          <v-card-actions>
+            <v-btn  color="red lighten3" flat @click="close">Cancelar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="e1 = 3">Atrás</v-btn>
+            <v-btn color="primary" @click="e1 = 5">Siguiente</v-btn>
+          </v-card-actions>
 
-          <v-btn flat>Cancel</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="5">
@@ -776,12 +790,9 @@
           
           </v-card>
           <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red lighten3" flat @click="close" class="btnCancel">
-                {{
-                $t('dataTable.CANCEL')
-                }}
-              </v-btn>
+            <v-btn  color="red lighten3" flat @click="close">{{ $t('dataTable.CANCEL') }}</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="e1 = 4">Atrás</v-btn> 
               <v-btn flat @click="saveItem" class="btnSave primary">
                 {{
                 $t('dataTable.SAVE')
@@ -907,8 +918,7 @@ export default {
     async saveItem() {
       try {
         const valid = await this.$validator.validateAll()
-        if (valid) {
-          debugger;
+        if (valid) { 
           this.save(this.editedItem)
           this.close()
           return

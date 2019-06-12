@@ -19,17 +19,25 @@
                 <div name="name">{{ user.name }}</div>
               </v-flex>
               <v-flex xs12 md4>
-                <label for="verified">
-                  <b>{{ $t('users.headers.VERIFIED') }}</b>
+                <label for="lastname">
+                  <b>{{ $t('users.headers.LASTNAME') }}</b> 
                 </label>
+                <div name="lastname">{{ user.lastname }}</div>
               </v-flex>
-            </template>
-            <v-flex xs12 md6>
-              <h2 class="mt-3">
-                <v-icon>build</v-icon>
-                {{ $t('admin.STATUS_PATIENT') }}
-              </h2>
-            </v-flex>
+               
+            </template> 
+            <v-flex xs12>
+                <h2 class="mt-3">
+                  <v-icon>build</v-icon>
+                  {{ $t('admin.STATUS_PATIENT') }}
+                </h2> 
+              </v-flex>
+              <v-flex xs12 md4>
+                <label for="status">
+                    <b>{{ $t('users.headers.STATUS') }}</b>
+                  </label>
+                  <div name="status">{{ user.status }}</div>
+              </v-flex>
             <v-flex xs12>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md68 mt-3>
@@ -66,12 +74,6 @@
                   <td>
                     <v-layout row>
                       <v-tooltip top>
-                        <v-btn icon class="mx-0" slot="activator" @click="editItem(props.item)">
-                          <v-icon>edit</v-icon>
-                        </v-btn>
-                        <span>{{ $t('dataTable.EDIT') }}</span>
-                      </v-tooltip>
-                      <v-tooltip top>
                         <v-btn icon class="mx-0" slot="activator" @click="deleteItem(props.item)">
                           <v-icon>delete</v-icon>
                         </v-btn>
@@ -79,9 +81,9 @@
                       </v-tooltip>
                     </v-layout>
                   </td>
-                  <td class="text-xs-center">{{ props.item.age }}</td>
-                  <td class="text-xs-center">{{ props.item.typeRecord }}</td>
-                  <td class="text-xs-right">{{ getFormat(props.item.date) }}</td>
+                  <td class="text-xs-center" @click="editItem(props.item)">{{ props.item.age }}</td>
+                  <td class="text-xs-center" @click="editItem(props.item)">{{ props.item.typeRecord }}</td>
+                  <td class="text-xs-right" @click="editItem(props.item)">{{ getFormat(props.item.date) }}</td>
                 </template>
               </v-data-table>
             </v-flex>
@@ -273,7 +275,7 @@ export default {
         if (valid) { 
           this.dataTableLoading = true 
           if(item._id)
-          {
+          { 
             await this.editRecord(item) 
           }else{   
            await this.saveRecord({
@@ -349,6 +351,9 @@ export default {
       }
     },
     createItem(item) {  
+
+              
+
       this.HRItem.patient_id = item.patient_id
       this.HRItem.name = item.name
       this.HRItem.lastname = item.lastname
@@ -356,6 +361,61 @@ export default {
     }, 
     editItem(item) {
       this.HRItem = Object.assign({}, item)
+      this.HRItem._id = item._id, 
+      this.HRItem.patient_id =  this.item.patient_id, 
+      this.HRItem.name = this.item.name,
+      this.HRItem.lastname = this.item.lastname,
+      this.HRItem.age = item.age,
+      this.HRItem.typeRecord = item.typeRecord,
+      this.HRItem.date = item.date,
+      this.HRItem.weightDry = item.weightDry,
+      this.HRItem.weightPreHd = item.weightPreHd,
+      this.HRItem.weightPostHd = item.weightPostHd,
+      this.HRItem.initialTA = item.initialTA,
+      this.HRItem.finalTA = item.finalTA,
+      this.HRItem.filter = item.filter,
+      this.HRItem.time = item.time,
+      this.HRItem.qs = item.qs,
+      this.HRItem.qd = item.qd,
+      this.HRItem.heparina = item.heparina,
+      this.HRItem.ufml = item.ufml,
+      this.HRItem.profileUf = item.profileUf,
+      this.HRItem.svsMeQL = item.svsMeQL,
+      this.HRItem.profileSVS = item.profileSVS,
+      this.HRItem.kmeql = item.kmeql,
+      this.HRItem.epo = item.epo,
+      this.HRItem.hierro = item.hierro,
+      this.HRItem.complico = item.complico,
+      this.HRItem.medidas = item.medidas,
+      this.HRItem.acceVasc = item.acceVasc,
+      this.HRItem.hb = item.hb,
+      this.HRItem.hto = item.hto,
+      this.HRItem.cmhb = item.cmhb,
+      this.HRItem.vgm = item.vgm,
+      this.HRItem.ferritina = item.ferritina,
+      this.HRItem.satTR = item.satTR,
+      this.HRItem.leucos = item.leucos,
+      this.HRItem.plaque = item.plaque,
+      this.HRItem.glucosa = item.glucosa,
+      this.HRItem.urea = item.urea,
+      this.HRItem.cr = item.cr,
+      this.HRItem.acUrico = item.acUrico,
+      this.HRItem.ca = item.ca,
+      this.HRItem.p = item.p,
+      this.HRItem.fosfAlcalin = item.fosfAlcalin,
+      this.HRItem.pth = item.pth,
+      this.HRItem.colest = item.colest,
+      this.HRItem.tgc = item.tgc,
+      this.HRItem.protTotales = item.protTotales,
+      this.HRItem.albunin = item.albunin,
+      this.HRItem.ast = item.ast,
+      this.HRItem.alt = item.alt,
+      this.HRItem.bi = item.bi,
+      this.HRItem.bd = item.bd,
+      this.HRItem.na = item.na,
+      this.HRItem.k = item.k,
+      this.HRItem.tp = item.tp,
+      this.HRItem.tpp = item.tpp
       this.hemoRecordDialog = true
       
     },

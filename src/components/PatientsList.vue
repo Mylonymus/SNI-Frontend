@@ -43,8 +43,7 @@
         :total-items="totalItems"
         class="elevation-1"
       >
-        <template v-slot:items="props" >
-          <tr @click="viewDetallesPaciente(props.item)">
+        <template v-slot:items="props" > 
           
             <td class="fill-height px-0">
               <v-layout class="justify-center">
@@ -72,15 +71,14 @@
                 </v-tooltip>
               </v-layout>
             </td>
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.lastname }}</td>
-            <td>{{ getFormat(props.item.dateBorn) }}</td>
-            <td>{{ props.item.city }}</td>
-            <td>{{ props.item.country }}</td>
-            <td>{{ props.item.phone }}</td>
-            <td>{{ getFormat(props.item.createdAt) }}</td>
-            <td>{{ getFormat(props.item.updatedAt) }}</td>
-          </tr>
+            <td @click="viewDetallesPaciente(props.item)">{{ props.item.name }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ props.item.lastname }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ getFormat(props.item.dateBorn) }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ props.item.city }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ props.item.country }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ props.item.phone }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ getFormat(props.item.createdAt) }}</td>
+            <td @click="viewDetallesPaciente(props.item)">{{ getFormat(props.item.updatedAt) }}</td> 
         </template>
         <template v-slot:pageText="props">
           {{ props.pageStart }} - {{ props.pageStop }} {{ $t('dataTable.OF') }}
@@ -281,8 +279,8 @@ export default {
       this.editedHemoPatient = data
       this.editedHemoPatient.patient_id = data.patient_id; 
       this.editedHemoPatient.name = this.hemoPatient.name;
-      this.editedHemoPatient.lastname = this.hemoPatient.lastname;
-
+      this.editedHemoPatient.lastname = this.hemoPatient.lastname; 
+      this.hemoPatient.status = data.status; 
       this.hemo_dialog = true
       
     },
@@ -299,8 +297,7 @@ export default {
           }
         )
         if (response) {
-          this.dataTableLoading = true
-          debugger
+          this.dataTableLoading = true 
           await this.deletePatient(item._id)
           await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())

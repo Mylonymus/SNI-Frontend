@@ -119,6 +119,7 @@
     "NEW_ITEM": "Nuevo Usuario",
     "EDIT_ITEM": "Editar Usuario",
     "headers": {
+      "STATUS": "Estado del paciente",
       "NAME": "Nombre",
       "LASTNAME":"Apellidos",
       "DATEBORN": "Fecha de Nacimiento",

@@ -35,16 +35,10 @@ const actions = {
     })
   },
   editRecord({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      const data = {
-        patient_id: payload.patient_id,
-        typeRecord: payload.typeRecord,
-        age: payload.age,
-        date: payload.date
-      }
+    return new Promise((resolve, reject) => { 
       
       api
-        .editRecord(payload._id, data)
+        .editRecord(payload._id, payload)
         .then(response => { 
           if (response.status === 200) {
             buildSuccess(
