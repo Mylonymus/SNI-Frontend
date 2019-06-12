@@ -40,7 +40,7 @@
           </v-list-tile>
         </v-list-group>
 
-        <v-list-group v-if="this.user.role === 'user'" prepend-icon="build" no-action>
+        <v-list-group v-if="userRole" prepend-icon="build" no-action>
           <v-list-tile slot="activator">
             <v-list-tile-title>{{ $t('adminItems.ADMIN') }}</v-list-tile-title>
           </v-list-tile>
@@ -110,7 +110,7 @@
           </v-list>
         </v-menu>
 
-        <v-menu v-if="this.user.role === 'user'" offset-y>
+        <v-menu offset-y  v-if="userRole" >
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-icon>local_hospital</v-icon>&nbsp;Pacientes
@@ -231,6 +231,13 @@ export default {
     admin() {
       return this.user !== null
         ? this.user.role === 'admin'
+          ? true
+          : false
+        : false
+    },
+    userRole() {
+      return this.user !== null
+        ? this.user.role === 'user'
           ? true
           : false
         : false
