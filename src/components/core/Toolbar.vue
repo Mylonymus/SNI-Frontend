@@ -4,11 +4,7 @@
       <v-list>
         <v-list-tile>
           <v-list-tile-content>
-            <v-img
-              contain
-              :src="`/logo-mexicoin-blue.png`"
-              :lazy-src="`/logo-mexicoin-blue.png`"
-            />
+            <v-img contain :src="`/logo-mexicoin-blue.png`" :lazy-src="`/logo-mexicoin-blue.png`"/>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-btn icon @click.stop="sidebar = !sidebar">
@@ -27,7 +23,6 @@
           </v-list-tile-action>
           <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
-
         <v-list-group v-if="admin" prepend-icon="build" no-action>
           <v-list-tile slot="activator">
             <v-list-tile-title>{{ $t('adminItems.ADMIN') }}</v-list-tile-title>
@@ -45,13 +40,27 @@
           </v-list-tile>
         </v-list-group>
 
+        <v-list-group v-if="this.user.role === 'user'" prepend-icon="build" no-action>
+          <v-list-tile slot="activator">
+            <v-list-tile-title>{{ $t('adminItems.ADMIN') }}</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile
+            v-for="(item, index) in userItems"
+            :key="index"
+            :to="{ name: item.link }"
+            exact
+          >
+            <v-list-tile-content class="d-inline mt-3">
+              <v-icon>{{ item.icon }}</v-icon>
+              {{ item.title }}
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
         <v-list-tile v-if="isTokenSet" @click="userLogout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>
-            {{ $t('menuItems.LOGOUT') }}
-          </v-list-tile-content>
+          <v-list-tile-content>{{ $t('menuItems.LOGOUT') }}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -61,99 +70,85 @@
       </span>
       <v-toolbar-title class="headline text-uppercase ml-0">
         <div>
-          <router-link
-            :to="{ name: 'home' }"
-            tag="div"
-            style="cursor: pointer"
-            v-if="isTokenSet"
-          >
-            <v-img
-              :src="`/logo-sna.png`"
-              :lazy-src="`/logo-sna.png`"
-              width="370"
-            />
+          <router-link :to="{ name: 'home' }" tag="div" style="cursor: pointer" v-if="isTokenSet">
+            <v-img :src="`/logo-sna.png`" :lazy-src="`/logo-sna.png`" width="370"/>
           </router-link>
-          <router-link
-            :to="{ name: 'landing' }"
-            tag="div"
-            style="cursor: pointer"
-            v-else
-          >
-            <v-img
-              :src="`/logo-sna.png`"
-              :lazy-src="`/logo-sna.png`"
-              width="370"
-            />
+          <router-link :to="{ name: 'landing' }" tag="div" style="cursor: pointer" v-else>
+            <v-img :src="`/logo-sna.png`" :lazy-src="`/logo-sna.png`" width="370"/>
           </router-link>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn
-          flat
-          to="/home"
-          exact
-          class="hidden-sm-and-down btnHome"
-        >
+        <v-btn flat to="/home" exact class="hidden-sm-and-down btnHome">
           <v-icon>home</v-icon>
           &nbsp;{{ this.$t('menuItems.HOME') }}
         </v-btn>
 
         <v-menu v-if="admin" offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn
-              flat 
-              v-on="on"
-            >
-            <v-icon>local_hospital</v-icon>
-                &nbsp;Pacientes
+            <v-btn flat v-on="on">
+              <v-icon>local_hospital</v-icon>&nbsp;Pacientes
             </v-btn>
           </template>
 
           <v-list>
-            <v-list-tile
-              v-for="(item, i) in adminItems"
-              :key="i"
-            >
+            <v-list-tile v-for="(item, i) in adminItems" :key="i">
               <v-btn
-              dark
-                  color="primary"
-                  flat 
-                  :key="i"
-                  :to="{ name: item.link }"
-                  exact
-                  :class="[item.class]"
-                ><v-icon>{{ item.icon }}</v-icon>
-                  &nbsp;{{ item.title }}
-                </v-btn>
+                dark
+                color="primary"
+                flat
+                :key="i"
+                :to="{ name: item.link }"
+                exact
+                :class="[item.class]"
+              >
+                <v-icon>{{ item.icon }}</v-icon>
+                &nbsp;{{ item.title }}
+              </v-btn>
             </v-list-tile>
           </v-list>
-        </v-menu> 
+        </v-menu>
 
-        <LocaleChanger />
+        <v-menu v-if="this.user.role === 'user'" offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn flat v-on="on">
+              <v-icon>local_hospital</v-icon>&nbsp;Pacientes
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-tile v-for="(item, i) in userItems" :key="i">
+              <v-btn
+                dark
+                color="primary"
+                flat
+                :key="i"
+                :to="{ name: item.link }"
+                exact
+                :class="[item.class]"
+              >
+                <v-icon>{{ item.icon }}</v-icon>
+                &nbsp;{{ item.title }}
+              </v-btn>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+
+        <LocaleChanger/>
         <v-menu v-if="isTokenSet" offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn 
-              flat 
-              v-on="on"
-            >
-              <v-icon>menu</v-icon> 
+            <v-btn flat v-on="on">
+              <v-icon>menu</v-icon>
             </v-btn>
           </template>
           <v-list>
             <v-list-tile class="menuDerecho">
-              <v-btn
-                block
-                right
-                flat 
-                to="profile"
-                exact
-                class="hidden-sm-and-down btnHome"
-              >
+              <v-btn block right flat to="profile" exact class="hidden-sm-and-down btnHome">
                 <v-icon>account_circle</v-icon>
                 &nbsp;{{ this.$t('menuItems.MY_PROFILE') }}
-              </v-btn> 
-            </v-list-tile> 
+              </v-btn>
+            </v-list-tile>
             <v-list-tile class="menuDerecho">
               <v-btn
                 block
@@ -168,7 +163,7 @@
               </v-btn>
             </v-list-tile>
           </v-list>
-        </v-menu> 
+        </v-menu>
       </v-toolbar-items>
     </v-toolbar>
   </div>
@@ -239,7 +234,8 @@ export default {
           ? true
           : false
         : false
-    }, 
+    },
+    
     adminItems() {
       return [
         {
@@ -268,6 +264,17 @@ export default {
         }
       ]
     },
+    userItems() {
+      return [
+        {
+          title: this.$t('adminItems.LISTPACIENTS'),
+          link: 'patients-list',
+          icon: 'view_list',
+          class: 'btnAdminUsers'
+        }
+      ]
+    },
+
     menuItems() {
       if (this.isTokenSet) {
         return [
@@ -311,19 +318,22 @@ export default {
 </script>
 
 <style>
-.v-toolbar{
+.v-toolbar {
   font-family: 'Trebuchet MS';
 }
-.theme--dark.v-toolbar{
-  background:linear-gradient(135deg,#004d74,#007c93);
-  border-bottom:2px solid;
+.theme--dark.v-toolbar {
+  background: linear-gradient(135deg, #004d74, #007c93);
+  border-bottom: 2px solid;
   border-bottom-color: #007fa8 !important;
 }
-.v-list__tile__title.ml-3{
-  color:#007c93 !important;
-  font-size:14px;
+.v-list__tile__title.ml-3 {
+  color: #007c93 !important;
+  font-size: 14px;
 }
-.menuDerecho div a,.menuDerecho,.menuDerecho div,.menuDerecho div button{
+.menuDerecho div a,
+.menuDerecho,
+.menuDerecho div,
+.menuDerecho div button {
   margin: 0;
   padding: 0;
   min-width: 110px;
