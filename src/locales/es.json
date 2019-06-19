@@ -54,7 +54,8 @@
   },
   "roles": {
     "ADMIN": "Administrador",
-    "USER": "Usuario"
+    "USER": "Usuario",
+    "PATIENT": "Paciente"
   },
   "PATIENTS_LIST": {
     "TITLE": "Listado de Pacientes",
@@ -174,8 +175,9 @@
     "PASSWORD_CHANGED": "Contraseña cambiada exitosamente"
   },
   "signup": {
-    "TITLE": "Alta Inversor",
+    "TITLE": "Alta Usuario",
     "NAME": "Nombre",
+    "LASTNAME": "Apellidos",
     "EMAIL": "E-mail",
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar Contraseña",

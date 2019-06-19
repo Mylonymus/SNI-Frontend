@@ -44,13 +44,14 @@ const actions = {
             )
             commit(types.SAVE_USER, response.data.user)
             commit(types.SAVE_TOKEN, response.data.token)
-            commit(types.EMAIL_VERIFIED, response.data.user.verified)
+            commit(types.EMAIL_VERIFIED, response.data.user.verified) 
+            const destinoUsuario = response.data.user.role === 'patient' ? 'estudiosPaciente' : 'home'           
             buildSuccess(
               null,
               commit,
               resolve,
               router.push({
-                name: 'home'
+                name: destinoUsuario
               })
             )
           }

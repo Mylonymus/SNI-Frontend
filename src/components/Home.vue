@@ -137,21 +137,21 @@ export default {
         //     " '" +
         //     value.year.toString().substr(2)
         // ),
-        // datasets: [
-        //   {
-        //     label: this.$t('TITLE_LEGEND'),
-        //     backgroundColor: '#007fa8',
-        //     fill: false,
-        //     data: this.balancesRecibidos.map(value => value.balance),
-        //     percent: this.balancesRecibidos.map(value => value.percent)
-        //   }
-        // ]
+        labels: ["Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic."],
+        datasets: [
+          {
+            label: this.$t('TITLE_LEGEND'),
+            backgroundColor: '#007fa8',
+            fill: false,
+            data: [15, 18, 20 , 12, 20, 18, 25, 30 , 31, 50, 45, 50]
+          }
+        ]
       }
     },
     currency() {
       return this.balancesRecibidos.length
         ? this.balancesRecibidos[0].currency
-        : 'MXN'
+        : 'Estudios'
     },
     headers() {
       return [

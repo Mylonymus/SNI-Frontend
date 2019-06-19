@@ -12,7 +12,7 @@
                 id="name"
                 name="name"
                 :label="$t('signup.NAME')"
-                v-model="name"
+                v-model="usuarioNuevo.name"
                 :data-vv-as="$t('signup.NAME')"
                 :error="errors.has('name')"
                 :error-messages="errors.collect('name')"
@@ -22,11 +22,34 @@
             </v-flex>
             <v-flex>
               <v-text-field
+                id="lastname"
+                name="lastname"
+                :label="$t('signup.LASTNAME')"
+                v-model="usuarioNuevo.lastname"
+                :data-vv-as="$t('signup.LASTNAME')"
+                :error="errors.has('lastname')"
+                :error-messages="errors.collect('lastname')"
+                v-validate.disable="'required'"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-select 
+                id="rolesUsuario"
+                name="rolesUsuario"
+                :items="rolesUsuario"
+                v-model="usuarioNuevo.rolesUsuario"
+                label="Rol de Usuario"
+                data-vv-as="Rol Usuario"
+              ></v-select>
+            </v-flex>
+            <v-flex>
+              <v-text-field
                 id="email"
                 name="email"
                 type="email"
                 :label="$t('signup.EMAIL')"
-                v-model="email"
+                v-model="usuarioNuevo.email"
                 :data-vv-as="$t('signup.EMAIL')"
                 :error="errors.has('email')"
                 :error-messages="errors.collect('email')"
@@ -40,7 +63,7 @@
                 name="password"
                 type="password"
                 :label="$t('signup.PASSWORD')"
-                v-model="password"
+                v-model="usuarioNuevo.password"
                 :data-vv-as="$t('signup.PASSWORD')"
                 :error="errors.has('password')"
                 :error-messages="errors.collect('password')"
@@ -55,7 +78,7 @@
                 name="confirmPassword"
                 type="password"
                 :label="$t('signup.CONFIRM_PASSWORD')"
-                v-model="confirmPassword"
+                v-model="usuarioNuevo.confirmPassword"
                 :data-vv-as="$t('signup.PASSWORD')"
                 :error="errors.has('confirmPassword')"
                 :error-messages="errors.collect('confirmPassword')"
@@ -88,21 +111,28 @@ export default {
   data() {
     return {
       name: '',
+      lastname: '',
       email: '',
+      rolesUsuario:['admin','user','patient'],
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      usuarioNuevo: {}
     }
-  },
+  },  
   methods: {
     ...mapActions(['userSignUp']),
+    
     async submit() {
       try {
         const valid = await this.$validator.validateAll()
         if (valid) {
           await this.userSignUp({
-            name: this.name,
-            email: this.email,
-            password: this.password
+            name: this.usuarioNuevo.name,
+            lastname: this.usuarioNuevo.lastname,
+            role: this.usuarioNuevo.rolesUsuario,
+            isPatient: this.usuarioNuevo.rolesUsuario === 'patient' ? true : false,
+            email: this.usuarioNuevo.email,
+            password: this.usuarioNuevo.password
           })
           return
         }

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :value="value" @input="$emit('input')" max-width="800px" content-class="dlgNewEditItem">
+  <v-dialog :value="value" @input="$emit('input')" max-width="100%" content-class="dlgNewEditItem">
     <v-card>
       <v-card-title class="text-xs-center mb-0 pb-0">
         <HeadingSection :title="$t('admin.INVESTMENT_TITLE')" icon="list_alt"/>
@@ -46,8 +46,7 @@
                 <v-flex xs12 sm6 md text-xs-right mb-2 mt-4>
                   <v-btn
                     color="primary"
-                    @click="editedItem = {}, HRItem= {},createItem(item),
-                      hemoRecordDialog = true
+                    @click="editedItem = {}, addNewRecord()
                     "
                     class="btnNewItem"
                   >
@@ -69,9 +68,148 @@
                 :pagination.sync="pagination"
                 :total-items="totalItems"
                 class="elevation-1"
+                ref="listadoRecords"
               >
                 <template v-slot:items="props">
-                  <td>
+                  <tr>
+                    <td>
+                      <v-text-field
+                      prepend-icon="date_range"
+                      id="age"
+                      name="age"
+                      v-model="props.item.age"
+                      :label="$t('movement.age')"
+                      :data-vv-as="$t('movement.age')"
+                      :error="errors.has('age')"
+                      :error-messages="errors.collect('age')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field> 
+                    </td>
+                    <td>
+                      <v-text-field
+                      prepend-icon="blur_linear"
+                      id="initialTA"
+                      name="initialTA"
+                      v-model="props.item.initialTA"
+                      :label="$t('movement.initialTA')"
+                      :data-vv-as="$t('movement.initialTA')"
+                      :error="errors.has('initialTA')"
+                      :error-messages="errors.collect('initialTA')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field>
+                    </td>
+                    <td>
+                      <v-text-field
+                      prepend-icon="blur_linear"
+                      id="finalTA"
+                      name="finalTA"
+                      v-model="props.item.finalTA"
+                      :label="$t('movement.finalTA')"
+                      :data-vv-as="$t('movement.finalTA')"
+                      :error="errors.has('finalTA')"
+                      :error-messages="errors.collect('finalTA')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field> 
+                    </td>
+                    <td>
+                      <v-menu
+                      :ref="props.item._id+'_menu'"
+                      :v-model="props.item._id+'_menu'"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="editedItem.date"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                          id="date"
+                          name="date"
+                          v-model="props.item.date"
+                          :label="$t('movement.DATE')"
+                          :data-vv-as="$t('movement.DATE')"
+                          :error="errors.has('date')"
+                          :error-messages="errors.collect('date')"
+                          v-validate.disable="'required:date'"
+                          autocomplete="off"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="props.item.date" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs[props.item._id+'_menu'].save(editedItem.date)">OK</v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                    </td>
+                    <td>
+                      <v-text-field
+                      prepend-icon="healing"
+                      id="weightDry"
+                      name="weightDry"
+                      v-model="props.item.weightDry"
+                      :label="$t('movement.weightDry')"
+                      :data-vv-as="$t('movement.weightDry')"
+                      :error="errors.has('weightDry')"
+                      :error-messages="errors.collect('weightDry')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field>
+                    </td>
+                    <td>
+
+
+                    <v-text-field
+                      prepend-icon="healing"
+                      id="weightPreHd"
+                      name="weightPreHd"
+                      v-model="props.item.weightPreHd"
+                      :label="$t('movement.weightPreHd')"
+                      :data-vv-as="$t('movement.weightPreHd')"
+                      :error="errors.has('weightPreHd')"
+                      :error-messages="errors.collect('weightPreHd')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field>
+                    </td>
+                    <td>
+
+
+                    <v-text-field
+                      prepend-icon="healing"
+                      id="weightPostHd"
+                      name="weightPostHd"
+                      v-model="props.item.weightPostHd"
+                      :label="$t('movement.weightPostHd')"
+                      :data-vv-as="$t('movement.weightPostHd')"
+                      :error="errors.has('weightPostHd')"
+                      :error-messages="errors.collect('weightPostHd')"
+                      v-validate="{ required: true }"
+                      autocomplete="off"
+                    ></v-text-field>
+                    </td>
+                    <td>
+                    <v-layout row>
+                      <v-tooltip top>
+                        <v-btn icon class="mx-0" slot="activator" @click="saveRecordDetalle(props.item)">
+                          <v-icon>save</v-icon>
+                        </v-btn>
+                        <span>{{ $t('dataTable.SAVE') }}</span>
+                      </v-tooltip>
+                    </v-layout>
+                  </td>
+                  </tr>
+
+
+                  <!-- <td>
                     <v-layout row>
                       <v-tooltip top>
                         <v-btn icon class="mx-0" slot="activator" @click="deleteItem(props.item)">
@@ -83,7 +221,7 @@
                   </td>
                   <td class="text-xs-center" @click="editItem(props.item)">{{ props.item.age }}</td>
                   <td class="text-xs-center" @click="editItem(props.item)">{{ props.item.typeRecord }}</td>
-                  <td class="text-xs-right" @click="editItem(props.item)">{{ getFormat(props.item.date) }}</td>
+                  <td class="text-xs-right" @click="editItem(props.item)">{{ getFormat(props.item.date) }}</td> -->
                 </template>
               </v-data-table>
             </v-flex>
@@ -110,6 +248,7 @@ export default {
   },
   data: () => ({
     defaultItem: {},
+    typeRecord: ['Nefrología'],
     searchBalance: '',
     searchInput: '',
     delayTimer: null,
@@ -216,7 +355,11 @@ export default {
       'deleteRecord',
       'retrieveAdminRecords',
       'clearAdminRecords'
-    ]),  
+    ]),   
+
+    addNewRecord(){
+      this.items.unshift({age: '',initialTA: '', finalTA: '', weightDry: '', weightPreHd: '', weightPostHd: '', typeRecord: 'Nefrología'})
+    },
     close() {
       this.editedItem = {}
       this.$emit('input')

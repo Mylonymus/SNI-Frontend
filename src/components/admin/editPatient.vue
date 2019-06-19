@@ -55,6 +55,71 @@
             </v-flex> 
             <v-flex xs12 md6>
               <v-text-field
+                id="email"
+                name="email"
+                type="email"
+                :label="$t('signup.EMAIL')"
+                v-model="editedUser.email"
+                :data-vv-as="$t('signup.EMAIL')"
+                :error="errors.has('email')"
+                :error-messages="errors.collect('email')"
+                v-validate.disable="'required|email'"
+                autocomplete="off"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 md6>
+              <v-select
+                clearable
+                id="role"
+                name="role"
+                v-model="editedUser.role"
+                :items="roles"
+                item-text="name"
+                item-value="value"
+                :label="$t('users.headers.ROLE')"
+                :data-vv-as="$t('users.headers.ROLE')"
+                :error="errors.has('role')"
+                :error-messages="errors.collect('role')"
+                v-validate.disable="'required'"
+                class="inputRole"
+              ></v-select>
+            </v-flex>
+
+            <template v-if="editedUser.role === 'patient'">
+              <v-flex xs12 md6>
+                <v-text-field
+                  id="password"
+                  name="password"
+                  type="password"
+                  :label="$t('users.PASSWORD')"
+                  v-model="editedUser.password"
+                  :data-vv-as="$t('users.PASSWORD')"
+                  :error="errors.has('password')"
+                  :error-messages="errors.collect('password')"
+                  key="password"
+                  v-validate.disable="'required|min:5'"
+                  ref="password"
+                  autocomplete="off"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 md6>
+                <v-text-field
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  :label="$t('users.CONFIRM_PASSWORD')"
+                  v-model="editedUser.confirmPassword"
+                  :data-vv-as="$t('users.PASSWORD')"
+                  :error="errors.has('confirmPassword')"
+                  :error-messages="errors.collect('confirmPassword')"
+                  key="confirmPassword"
+                  v-validate.disable="'required|min:5|confirmed:password'"
+                  autocomplete="off"
+                ></v-text-field>
+              </v-flex>
+            </template>
+            <v-flex xs12 md6 v-if="editedUser.role === 'patient'">
+              <v-text-field
                 id="dateBorn"
                 name="dateBorn"
                 type="date"
@@ -67,7 +132,7 @@
                 autocomplete="off"
               ></v-text-field>
             </v-flex> 
-            <v-flex xs12 md6>
+            <v-flex xs12 md6 v-if="editedUser.role === 'patient'">
               <v-autocomplete
                 id="country"
                 name="country"
@@ -86,7 +151,7 @@
                 browser-autocomplete="nope"
               ></v-autocomplete>
             </v-flex>
-            <v-flex xs12 md6>
+            <v-flex xs12 md6 v-if="editedUser.role === 'patient'">
               <v-autocomplete
                 id="city"
                 name="city"
@@ -160,7 +225,8 @@ export default {
     roles() {
       return [
         { name: this.$t('roles.ADMIN'), value: 'admin' },
-        { name: this.$t('roles.USER'), value: 'user' }
+        { name: this.$t('roles.USER'), value: 'user' },
+        { name: this.$t('roles.PATIENT'), value: 'patient' }
       ]
     },
     formTitle() {
@@ -175,7 +241,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['editUser', 'saveUser']),
+    ...mapActions(['editUser', 'userSignUp']),
     getCitiesByCountry,
     close() {
       this.editedUser = {}
@@ -200,6 +266,17 @@ export default {
       try {
         const valid = await this.$validator.validateAll()
         if (valid) {
+          this.userSignUp({
+            name: this.editedUser.name,
+            lastname: this.editedUser.lastname,
+            email: this.editedUser.email,
+            password: this.editedUser.password,
+            role: this.editedUser.role,
+            phone: this.editedUser.phone,
+            city: this.editedUser.city,
+            country: this.editedUser.country,
+            verified: true
+          }) 
           this.save(this.editedUser)
           this.close()
           return

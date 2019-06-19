@@ -3,6 +3,7 @@
     <v-layout row wrap>
       <Heading :title="$t('landing.TITLE')" />
       <Description :description="$t('landing.DESCRIPTION')" />
+      <v-img :src="`/logo-sna.png`" :lazy-src="`/logo-sna.png`" ></v-img>
     </v-layout>
   </v-container>
 </template>

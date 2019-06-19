@@ -2,7 +2,7 @@
   <div class="bg-site">
     <v-layout wrap>
       <v-flex xs12 sm12 md4 mt-3 pl-4>
-        <HeadingSection :title="$t('users.TITLE')" icon="people" />
+        <HeadingSection title="Consulta tus estudios" icon="people" />
       </v-flex>
       <v-flex xs12 sm6 md4 px-3>
         <v-text-field
@@ -13,20 +13,6 @@
           hide-details
           clearable
         ></v-text-field>
-      </v-flex>
-      <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
-        <v-btn
-          color="primary"
-          @click="
-            editedItem = {}
-            dialog = true 
-          "
-          class="btnNewItem pr-4"
-        >
-          <v-icon class="mr-2">add</v-icon>
-          {{ $t('users.NEW_ITEM') }}
-        </v-btn>
-        <UserForm v-model="dialog" :save="save" :item="editedItem"/>
       </v-flex>
     </v-layout>
     <v-flex xs12 sm12 pa-3>
@@ -149,7 +135,8 @@ export default {
     roles() {
       return [
         { name: this.$t('roles.ADMIN'), value: 'admin' },
-        { name: this.$t('roles.USER'), value: 'user' }
+        { name: this.$t('roles.USER'), value: 'user' },
+        { name: this.$t('roles.PATIENT'), value: 'patient' }
       ]
     },
     allCities() {
@@ -262,13 +249,7 @@ export default {
       return getFormat(date, 'ddd, MMMM D YYYY, h:mm a')
     },
     roleName(value) {
-      if(value === 'admin'){
-        return this.$t('roles.ADMIN')
-      }else if(value === 'user'){
-        return this.$t('roles.USER')
-      }else{
-        return this.$t('roles.PATIENT')
-      }
+      return value === 'admin' ? this.$t('roles.ADMIN') : this.$t('roles.USER')
     },
     trueFalse(value) {
       return value

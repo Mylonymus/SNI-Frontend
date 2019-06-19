@@ -13,21 +13,12 @@ export default {
           callbacks: {
             title: (tooltipItem, data) => {
               return (
-                tooltipItem[0].label +
-                ' (' +
-                parseFloat(
-                  this.chartData.percents[tooltipItem[0].index]
-                ).toFixed(2) +
-                '%)'
+                tooltipItem[0].label + '%)'
               )
             },
             label: (tooltipItem, data) => {
               let label = data.datasets[tooltipItem.datasetIndex].label
-              let value =
-                data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]
-              value = parseFloat(value)
-                .toLocaleString('es-MX')
-                .toString()
+              let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] 
 
               return label + ': ' + value
             }

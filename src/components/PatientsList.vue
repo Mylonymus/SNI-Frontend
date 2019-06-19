@@ -238,7 +238,8 @@ export default {
       'getPatients',
       'editPatient',
       'savePatient',
-      'deletePatient'
+      'deletePatient',
+      'saveUser'
     ]),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
@@ -325,12 +326,13 @@ export default {
           await this.savePatient({
             name: item.name,
             lastname: item.lastname,
+            email: item.email,
+            role: item.role,
+            password: item.password,
             phone: item.phone,
             dateBorn: item.dateBorn,
             city: item.city,
-            country: item.country,
-            createdAt: Date.now(),
-            updatedAt: Date.now()
+            country: item.country
           })
           await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())
