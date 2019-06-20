@@ -7,7 +7,7 @@ import es from 'vee-validate/dist/locale/es'
 Vue.use(VueI18n)
 
 const veeValidateConfig = {
-  locale: JSON.parse(localStorage.getItem('locale')) || 'en',
+  locale: JSON.parse(localStorage.getItem('locale')) || 'es',
   dictionary: {
     en,
     es

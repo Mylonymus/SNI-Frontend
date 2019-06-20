@@ -12,8 +12,9 @@
       <v-card-text>
         <v-container grid-list-md>
           <v-layout wrap>
+            
             <template v-if="editedUser._id">
-              <v-flex xs12 md4>
+              <v-flex xs12 md4 offset-md4>
                 <label for="createdAt">{{ $t('common.CREATED') }}</label>
                 <div name="createdAt">
                   {{ getFormat(editedUser.createdAt) }}
@@ -24,8 +25,48 @@
                 <div name="updatedAt">
                   {{ getFormat(editedUser.updatedAt) }}
                 </div>
-              </v-flex>
-            </template>
+              </v-flex> 
+              
+            </template>   
+            
+            
+
+            <v-flex xs6 md6>
+              <v-flex >
+                <figure class="figure imageProfile">
+                  <v-img :src="editedUser.img" max-height="269" class="img-responsive" >
+                  </v-img>
+                </figure>
+              </v-flex> 
+            </v-flex>   
+
+            <v-flex xs6 md6> 
+              <vue-web-cam 
+                v-if="activeCamera" 
+                ref="webcam"
+                :device-id="deviceId"
+                width="100%"
+                height="269"
+                @started="onStarted" 
+                @stopped="onStopped" 
+                @error="onError"
+                @cameras="onCameras"
+                @camera-change="onCameraChange" />
+              
+            </v-flex>
+            <v-flex xs6 md6>
+            </v-flex>
+            <v-flex xs12 md12 class="botoneraCamara">
+              <v-btn color="blue" type="button" v-if="activeCamera"
+                class="btn btn-primary" 
+                @click="onCapture"><v-icon color="white">camera_enhance</v-icon></v-btn>
+              <v-btn color="red" type="button" v-if="activeCamera"
+                      class="btn btn-danger" 
+                      @click="stopCamara"><v-icon color="white">videocam_off</v-icon></v-btn>
+              <v-btn color="green" type="button" v-if="!activeCamera"  
+                      class="btn btn-success" 
+                      @click="activeCamera = true, onStart"><v-icon color="white">videocam</v-icon></v-btn>
+            </v-flex>
             <v-flex xs12 md6>
               <v-text-field
                 id="name"
@@ -204,24 +245,46 @@
 import { getAllCountries, getCitiesByCountry } from '@/services/api/countries'
 import { getFormat } from '@/utils/utils.js'
 import { mapActions } from 'vuex'
+import { WebCam } from 'vue-web-cam'
 
 const countries = getAllCountries()
 
 export default {
+  components: {
+    "vue-web-cam": WebCam
+  },
   data: () => ({
     defaultItem: {},
     searchCountry: '',
     searchCity: '',
     countries,
-    editedUser: {}
+    editedUser: {},
+    activeCamera: false, 
+    camera: null,
+    deviceId: null,
+    devices: []
   }),
   props: ['value', 'item', 'save'],
   watch: {
     item(newValue) { 
       this.editedUser = newValue && Object.keys(newValue) ? newValue : {}
+    },
+    camera: function(id) {
+      this.deviceId = id;
+    },
+    devices: function() {
+      // Once we have a list select the first one
+      const [first, ...tail] = this.devices;
+      if (first) {
+        this.camera = first.deviceId;
+        this.deviceId = first.deviceId;
+      }
     }
   },
   computed: {
+    device: function() {
+      return this.devices.find(n => n.deviceId === this.deviceId);
+    },
     roles() {
       return [
         { name: this.$t('roles.ADMIN'), value: 'admin' },
@@ -277,6 +340,7 @@ export default {
             country: this.editedUser.country,
             verified: true
           }) 
+           
           this.save(this.editedUser)
           this.close()
           return
@@ -287,7 +351,53 @@ export default {
         this.close()
         return
       }
+    },
+
+    stopCamara(){
+      this.$refs.webcam.stop()
+      this.onStop()
+      this.activeCamera = false
+      this.devices = [];
+      this.deviceId = null 
+    },
+    onCapture() {
+      this.img = this.$refs.webcam.capture();
+      this.editedUser.img = this.img;
+    },
+    onStarted(stream) {
+      console.log("On Started Event", stream);
+    },
+    onStopped(stream) {
+      console.log("On Stopped Event", stream);
+    },
+    onStop() {
+      this.$refs.webcam.stop();
+    },
+    onStart() {
+      this.$refs.webcam.start();
+    },
+    onError(error) {
+      console.log("On Error Event", error);
+    },
+    onCameras(cameras) {
+      this.devices = cameras;
+      console.log("On Cameras Event", cameras);
+    },
+    onCameraChange(deviceId) {
+      this.deviceId = deviceId;
+      this.camera = deviceId;
+      console.log("On Camera Change Event", deviceId);
     }
   }
 }
 </script>
+
+<style>
+figure.figure.imageProfile {
+    position: relative;
+    bottom: 0px;
+}
+.botoneraCamara {
+    margin-top: -335px !important;
+}
+</style>

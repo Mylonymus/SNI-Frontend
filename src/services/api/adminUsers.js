@@ -10,7 +10,6 @@ export default {
     return axios.patch(`/users/${id}`, payload)
   },
   saveUser(payload) {
-    debugger
     return axios.post('/users/', payload)
   },
   deleteUser(id) {

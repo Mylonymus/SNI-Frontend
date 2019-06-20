@@ -18,7 +18,7 @@
         <v-btn
           color="primary"
           @click="
-            editedPatient = {}
+            editedPatient = {img: 'https://www.americanaircraftsales.com/wp-content/uploads/2016/09/no-profile-img.jpg'}
             dialog = true
           "
           class="btnNewItem pr-4"
@@ -332,7 +332,8 @@ export default {
             phone: item.phone,
             dateBorn: item.dateBorn,
             city: item.city,
-            country: item.country
+            country: item.country,
+            img: item.img
           })
           await this.getPatients(
             buildPayloadPagination(this.pagination, this.buildSearch())

@@ -88,7 +88,7 @@ export default {
   background-repeat: no-repeat;
 }
 .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row) {
-  background: #002053;
+  background: #006a87;
   color: white;
   cursor: pointer;
 }
