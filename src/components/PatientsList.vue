@@ -267,8 +267,12 @@ export default {
         ? { query: this.search, fields: this.fieldsToSearch.join(',') }
         : {}
     },
-    editItem(item) { 
+    async editItem(item) { 
+      const { data } = await axios.get('/detallesPaciente/patient_id/'+item._id) 
+
       this.editedPatient = Object.assign({}, item)
+      this.editedPatient.email = data.email
+      this.editedPatient.role = 'patient'
       this.dialog = true
     },
     async viewDetallesPaciente(user) {
@@ -312,6 +316,7 @@ export default {
     },
     async saveHemoSession() {},
     async save(item) {
+      debugger
       try {
         this.dataTableLoading = true
         // Updating item

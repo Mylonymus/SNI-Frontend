@@ -328,6 +328,7 @@ export default {
     async saveItem() { 
       try {
         const valid = await this.$validator.validateAll()
+        debugger
         if (valid) {
           this.userSignUp({
             name: this.editedUser.name,
@@ -399,5 +400,10 @@ figure.figure.imageProfile {
 }
 .botoneraCamara {
     margin-top: -335px !important;
+}
+@media(max-width:670px){
+.botoneraCamara {
+  margin-top: 0px !important;
+}
 }
 </style>
